@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TourismApp2</string>
+    <string name="welcome_to_">Welcome To Travel
+</string>
+    <string name="title_activity_home_screen">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+</resources>
