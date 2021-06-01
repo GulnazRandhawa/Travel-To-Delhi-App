@@ -8,9 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import example.com.tourismapp2.classpack.user_details;
+
 public class User_Signup_Screen extends AppCompatActivity {
  Button button_signup;
  EditText et_firstname,et_lastname,et_dob,et_gender,et_email,et_password;
+ DatabaseReference maianref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,10 @@ public class User_Signup_Screen extends AppCompatActivity {
         et_gender = findViewById(R.id.et_gender);
         et_email = findViewById(R.id.et_email);
         et_password = findViewById(R.id.et_password);
+
+        FirebaseApp.initializeApp(this);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        maianref = firebaseDatabase.getReference("Users");
 
         button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +50,10 @@ public class User_Signup_Screen extends AppCompatActivity {
                     Toast.makeText(User_Signup_Screen.this, "All fieldsa are required.", Toast.LENGTH_SHORT).show();
                 }else {
                     // firebase submit
+                    user_details obj = new user_details(firstname,lastname,dob,gender,email,password);
+                    maianref.child(firstname).setValue(obj);
+                    Toast.makeText(User_Signup_Screen.this, "Signup Sccessfully.", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
             }
