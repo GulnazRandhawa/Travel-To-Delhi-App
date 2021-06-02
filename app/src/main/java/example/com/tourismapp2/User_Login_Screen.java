@@ -3,6 +3,7 @@ package example.com.tourismapp2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,19 +44,41 @@ public class User_Login_Screen extends AppCompatActivity {
                 }
                 else {
 
-                    mainref.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    mainref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Log.d("Hello",snapshot.toString());
                             if(snapshot.exists()){
-                                user_details obj = snapshot.getValue(user_details.class);
-                                Toast.makeText(User_Login_Screen.this, ""+pass, Toast.LENGTH_SHORT).show();
-                                if(obj.getPassword().equals(pass)){
-                                    Toast.makeText(User_Login_Screen.this, "Success", Toast.LENGTH_SHORT).show();
+
+                                int flag=0;
+
+                                for (DataSnapshot sin : snapshot.getChildren()){
+                                    user_details obj = sin.getValue(user_details.class);
+
+                                    if (obj.getEmail().equals(email)&&obj.getPassword().equals(pass)){
+
+                                        flag=1;
+
+                                        break;
+
+                                    }
+
                                 }
-                                else {
-                                    Toast.makeText(User_Login_Screen.this, "Invalid Password", Toast.LENGTH_SHORT).show();
+
+                                if (flag==1){
+                                    Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+
+                                    Intent in = new Intent(getApplicationContext(), HomeScreen.class);
+
+                                    startActivity(in);
+
                                 }
+                                else{
+
+                                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+                                }
+
+
                             }else {
                                 Toast.makeText(User_Login_Screen.this, "Invalid Emaial address", Toast.LENGTH_SHORT).show();
 

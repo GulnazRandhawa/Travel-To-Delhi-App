@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "168117740679",
+    "firebase_url": "https://ui-design-india-default-rtdb.firebaseio.com",
+    "project_id": "ui-design-india",
+    "storage_bucket": "ui-design-india.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168117740679:android:229bb8d6e6bcc9bba24422",
+        "android_client_info": {
+          "package_name": "example.com.tourismapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168117740679-8r2m16hsouik3cb99fv975hj7v9trkv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCliDYJuzgXA9H0w0mN5R247Qnd_lKaUv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168117740679-8r2m16hsouik3cb99fv975hj7v9trkv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
