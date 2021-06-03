@@ -37,10 +37,6 @@ public class Post_Review extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post__review);
-//         d= new Date();
-//        SimpleDateFormat sdf  = new SimpleDateFormat("dd-MM-yyyy");
-//       d1 = sdf.format(sdf.format(d));
-
         dNow= new Date( );
         SimpleDateFormat ft =
                 new SimpleDateFormat ("dd/MM/yyyy");
@@ -50,8 +46,10 @@ d1 = ft.format(dNow);
 
         Intent intent= getIntent();
         places_key = intent.getStringExtra("places_key");
+
         SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
         email = sharedPreference.getString("email","");
+
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         tvRateCount = (TextView) findViewById(R.id.tvRateCount);
         tvRateMessage = (TextView) findViewById(R.id.tvRateMessage);

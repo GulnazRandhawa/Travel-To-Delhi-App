@@ -124,20 +124,21 @@ DatabaseReference mainref;
 
             CardView localcardview = holder.singlecardview;
             ImageView imv101;
-            TextView tv_catname,tv_catdesc;
+            TextView tv_place_name,tv_catdesc;
             imv101=(ImageView)(localcardview.findViewById(R.id.imvcardview_catphoto));
-            tv_catname=(TextView)(localcardview.findViewById(R.id.tvcardview_catname));
+            tv_place_name=(TextView)(localcardview.findViewById(R.id.tvcardview_catname));
 
 //
-            places_details cat=al.get(position);
-            tv_catname.setText(cat.getPlace_name());
+            places_details places_details_obj=al.get(position);
 
-            Picasso.get().load(cat.getImages()).resize(500,500).centerInside().into(imv101);
+            tv_place_name.setText(places_details_obj.getPlace_name());
+
+            Picasso.get().load(places_details_obj.getImages()).resize(500,500).centerInside().into(imv101);
             localcardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent in = new Intent(getContext(),View_Place_detail.class);
-                    in.putExtra("obj",cat);
+                    in.putExtra("obj",places_details_obj);
                     startActivity(in);
                 }
             });

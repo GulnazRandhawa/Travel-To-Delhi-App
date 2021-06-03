@@ -37,7 +37,7 @@ public class View_Place_detail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(getApplicationContext(),Manage_Reviews.class);
-                in.putExtra("places_key",obj.getPush_key());
+                in.putExtra("places_key",obj.getPush_key()); // Sends that selected place's key to Manage reviews page
                 startActivity(in);
 
             }
