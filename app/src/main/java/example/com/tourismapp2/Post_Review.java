@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -29,10 +30,24 @@ public class Post_Review extends AppCompatActivity {
     EditText edcomment;
     String comment;
     DatabaseReference mainref;
+    Date dNow;
+    String d1="";
+    Button btnrate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post__review);
+//         d= new Date();
+//        SimpleDateFormat sdf  = new SimpleDateFormat("dd-MM-yyyy");
+//       d1 = sdf.format(sdf.format(d));
+
+        dNow= new Date( );
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("dd/MM/yyyy");
+
+        System.out.println("Current Date: " + ft.format(dNow));
+d1 = ft.format(dNow);
+
         Intent intent= getIntent();
         places_key = intent.getStringExtra("places_key");
         SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
@@ -86,18 +101,18 @@ public class Post_Review extends AppCompatActivity {
             }
 
         });
+        btnrate = findViewById(R.id.btnrate);
+        btnrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                comment=edcomment.getText().toString();
+                String key = mainref.push().getKey();
+                rating_details obj = new rating_details(comment,email,places_key,key,d1, dNow.getTime(),ratedValue);
+                mainref.child(places_key).child(key).setValue(obj);
+                Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
-    public void doctorRate(View view) {
-        Date d = new Date();
-        SimpleDateFormat sdf  = new SimpleDateFormat("dd-MM-yyyy");
-        String d1 = sdf.format(sdf.format(d));
 
-        comment=edcomment.getText().toString();
-        String key = mainref.push().getKey();
-        rating_details obj = new rating_details(comment,email,places_key,key,d1,d.getTime(),ratedValue);
-        mainref.child(places_key).child(key).setValue(obj);
-        Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
-        finish();
-
-    }
 }

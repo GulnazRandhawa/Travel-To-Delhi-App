@@ -39,5 +39,5 @@
         android:layout_height="wrap_content"
         android:text="SUBMIT RATING"
         android:id="@+id/btnrate"
-        android:onClick="doctorRate"/>
+        />
 </LinearLayout>
