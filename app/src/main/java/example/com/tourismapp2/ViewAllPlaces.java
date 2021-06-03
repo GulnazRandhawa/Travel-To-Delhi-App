@@ -131,7 +131,7 @@ DatabaseReference mainref;
 //
             places_details cat=al.get(position);
             tv_catname.setText(cat.getPlace_name());
-            tv_catname.setText(cat.getDescription());
+
             Picasso.get().load(cat.getImages()).resize(500,500).centerInside().into(imv101);
             localcardview.setOnClickListener(new View.OnClickListener() {
                 @Override

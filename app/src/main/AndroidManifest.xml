@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="example.com.tourismapp2">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TourismApp2">
-        <activity android:name=".View_Place_detail"></activity>
+        <activity android:name=".Post_Review"></activity>
+        <activity
+            android:name=".Manage_Reviews"
+            android:label="@string/title_activity_manage__reviews"
+            android:theme="@style/Theme.TourismApp2.NoActionBar" />
+        <activity android:name=".View_Place_detail" />
         <activity android:name=".User_Forget_Password_Screen" />
         <activity android:name=".User_Signup_Screen" />
         <activity android:name=".User_Login_Screen" />
@@ -17,7 +24,9 @@
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen" />
         <activity android:name=".Login_Signup" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

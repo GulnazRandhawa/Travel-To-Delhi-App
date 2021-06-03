@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ public class User_Login_Screen extends AppCompatActivity {
     EditText et_password,et_email;
     Button button_login;
     DatabaseReference mainref;
+    String firstname ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class User_Login_Screen extends AppCompatActivity {
 
                                 for (DataSnapshot sin : snapshot.getChildren()){
                                     user_details obj = sin.getValue(user_details.class);
-
+firstname = obj.getFirstname();
                                     if (obj.getEmail().equals(email)&&obj.getPassword().equals(pass)){
 
                                         flag=1;
@@ -67,7 +69,13 @@ public class User_Login_Screen extends AppCompatActivity {
 
                                 if (flag==1){
                                     Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+                                    SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreference.edit();
+                                    editor.putString("email",email);
+                                    editor.putString("password",pass);
+                                    editor.putString("firstname",firstname);
 
+                                    editor.commit();
                                     Intent in = new Intent(getApplicationContext(), HomeScreen.class);
 
                                     startActivity(in);

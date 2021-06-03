@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 public class places_details implements Serializable {
     String place_name,images,description,push_key;
+    double rating = 4.6;
 
     public places_details() {
     }
 
-    public places_details(String place_name, String images, String description, String push_key) {
+    public places_details(String place_name, String images, String description, String push_key, double rating) {
         this.place_name = place_name;
         this.images = images;
         this.description = description;
         this.push_key = push_key;
+        this.rating = rating;
     }
 
     public String getPlace_name() {
@@ -45,5 +47,13 @@ public class places_details implements Serializable {
 
     public void setPush_key(String push_key) {
         this.push_key = push_key;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
