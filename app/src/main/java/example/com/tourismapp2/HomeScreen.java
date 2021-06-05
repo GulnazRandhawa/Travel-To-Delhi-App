@@ -41,13 +41,25 @@ public class HomeScreen extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:
+                        //home
                         fragment =  new ViewAllPlaces();
                         loadFragment(fragment);
 
                         return true;
                     case R.id.navigation_dashboard:
+                        //calender
 //                        fragment = new User_Buy_Package();
 //                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_notifications:
+                        //fav
+//                        fragment = new User_Buy_Package();
+//                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_profile:
+                        //profile
+                        fragment = new user_profile_page();
+                        loadFragment(fragment);
                         return true;
 
 
