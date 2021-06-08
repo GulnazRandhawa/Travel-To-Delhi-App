@@ -53,8 +53,8 @@ public class HomeScreen extends AppCompatActivity {
                         return true;
                     case R.id.navigation_notifications:
                         //fav
-//                        fragment = new User_Buy_Package();
-//                        loadFragment(fragment);
+                        fragment = new view_all_fav_places();
+                        loadFragment(fragment);
                         return true;
                     case R.id.navigation_profile:
                         //profile
