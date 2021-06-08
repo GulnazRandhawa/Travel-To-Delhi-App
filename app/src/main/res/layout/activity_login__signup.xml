@@ -13,6 +13,8 @@ android:orientation="vertical"
         android:layout_height="33dp"
 
         android:text="@string/welcome_to_"
+        android:fontFamily="@font/opensans_regular"
+        android:textFontWeight="600"
         android:textAppearance="@style/welcome_to_"
         android:gravity="center_horizontal|top"
         />
@@ -27,6 +29,7 @@ android:orientation="vertical"
         android:text="Login" />
 
     <Button
+        style="@style/MyButtonStyle2"
         android:id="@+id/button_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
