@@ -6,15 +6,46 @@
     android:orientation="vertical"
     tools:context=".user_profile_page">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/app_bg_color"
+
+
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+
+            />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_on_off_button"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            />
+
+    </RelativeLayout>
+
     <!-- TODO: Update blank fragment layout -->
    <LinearLayout
        android:layout_width="match_parent"
        android:orientation="horizontal"
+       android:layout_marginTop="21dp"
 
        android:layout_height="wrap_content">
        <ImageView
            android:src="@drawable/ellipse4"
-           android:layout_margin="16dp"
+           android:layout_marginStart="16dp"
            android:layout_width="105dp"
            android:layout_height="105dp"/>
 <LinearLayout
@@ -22,6 +53,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center"
+    android:layout_marginStart="17dp"
     android:layout_height="match_parent">
     <TextView
         android:text="John"
@@ -48,9 +80,10 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#9C9C9C"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:layout_gravity="center"/>
 
     <TextView
@@ -136,32 +169,34 @@
             android:layout_marginLeft="15dp"
             android:src="@drawable/star_vector"
 
-            android:layout_width="23dp"
-            android:layout_height="23dp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
         <ImageView
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="1dp"
             android:src="@drawable/star_vector"
 
-            android:layout_width="23dp"
-            android:layout_height="23dp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
         <ImageView
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="1dp"
             android:src="@drawable/star_vector"
 
-            android:layout_width="23dp"
-            android:layout_height="23dp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
         <ImageView
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="1dp"
             android:src="@drawable/star_vector"
 
-            android:layout_width="23dp"
-            android:layout_height="23dp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
         <ImageView
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="1dp"
             android:src="@drawable/star_vector"
 
-            android:layout_width="23dp"
-            android:layout_height="23dp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+
     </LinearLayout>
 
 
