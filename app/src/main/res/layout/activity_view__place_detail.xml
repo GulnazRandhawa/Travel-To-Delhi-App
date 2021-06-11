@@ -178,6 +178,18 @@
             android:textFontWeight="600"
             android:textSize="16dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularDesRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            />
+
+
     </LinearLayout>
+
+
 
 </ScrollView>

@@ -2,11 +2,15 @@ package example.com.tourismapp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +33,8 @@ public class View_Place_detail extends AppCompatActivity {
     ImageView img_add_calaneder,img_add_fav;
     DatabaseReference fav_mainref;
     boolean flag = false;
+    RecyclerView popularDesRv;
+    MyRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,14 @@ public class View_Place_detail extends AppCompatActivity {
         Intent in = getIntent();
         places_details obj = (places_details) in.getSerializableExtra("obj");
 
+        //
+        popularDesRv = findViewById(R.id.popularDesRv);
+
+        adapter = new MyRecyclerViewAdapter();
+        popularDesRv.setAdapter(adapter);
+        popularDesRv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        //
         fav_mainref = FirebaseDatabase.getInstance().getReference("User_Added_Fav_Places");
         place_image = findViewById(R.id.place_image);
         placename = findViewById(R.id.placename);
@@ -115,5 +129,40 @@ public class View_Place_detail extends AppCompatActivity {
             }
         });
 
+
+
     }
+    //popular destinations adapter to display the objects from arraylist into recycler.
+    public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+
+
+        @NonNull
+        @Override
+        public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = getLayoutInflater().inflate(R.layout.popular_des_recycler_design, parent, false); // single row design
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MyRecyclerViewAdapter.ViewHolder holder, int position) {
+            View localcardview = holder.itemView;
+
+            ImageView image_slider = localcardview.findViewById(R.id.image_slider);
+            TextView gastown_van = localcardview.findViewById(R.id.gastown_van);
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 3;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
+    }
+
 }

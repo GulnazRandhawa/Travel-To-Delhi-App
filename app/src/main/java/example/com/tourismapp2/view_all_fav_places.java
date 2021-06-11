@@ -1,6 +1,5 @@
 package example.com.tourismapp2;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +39,7 @@ public class view_all_fav_places extends Fragment {
     ArrayList<places_details> arrayList = new ArrayList<>();
     DatabaseReference fetch_saved_places_mainref,fetch_places ;
     RecyclerView rcv_managecategory_showcategory;
-    MyRecyclerAdapter2 myad_view = new MyRecyclerAdapter2();
+    MyRecyclerAdapter_Places myad_view = new MyRecyclerAdapter_Places();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class view_all_fav_places extends Fragment {
         fetch_saved_places_mainref  = FirebaseDatabase.getInstance().getReference("User_Added_Fav_Places");
         fetch_places  = FirebaseDatabase.getInstance().getReference("Places");
 
-        fetch_saved_places_mainref.orderByChild("user_email_id").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+        fetch_saved_places_mainref.orderByChild("user_email_id").equalTo(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 temp_places_id_array_list.clear();
@@ -116,7 +116,7 @@ public class view_all_fav_places extends Fragment {
                     Log.d("Hello-msg",snapshot.toString());
                     if(snapshot.exists()){
                         places_details obj3 = snapshot.getValue(places_details.class);
-//                        arrayList.add(obj3); //adding the place's details into the arraylist from object created above.
+                        arrayList.add(obj3); //adding the place's details into the arraylist from object created above.
                         //notify change
 //                        Toast.makeText(getActivity(), ""+arrayList.size(), Toast.LENGTH_SHORT).show();
                         myad_view.notifyDataSetChanged();
@@ -133,7 +133,7 @@ public class view_all_fav_places extends Fragment {
     }
 
 
-    class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.MyViewHolder>
+    class MyRecyclerAdapter_Places extends RecyclerView.Adapter<MyRecyclerAdapter_Places.MyViewHolder>
     {
 
         // Define ur own View Holder (Refers to Single Row)
@@ -143,10 +143,11 @@ public class view_all_fav_places extends Fragment {
 
             // We have Changed View (which represent single row) to CardView in whole code
 
-            public MyViewHolder(CardView itemView) {
+            public MyViewHolder(View itemView) {
 
                 super(itemView);
-                singlecardview = (itemView);
+                singlecardview = (itemView.findViewById(R.id.card));
+
             }
 
         }
@@ -154,24 +155,26 @@ public class view_all_fav_places extends Fragment {
 
         // Inflate ur Single Row / CardView from XML here
         @Override
-        public MyRecyclerAdapter2.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyRecyclerAdapter_Places.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             LayoutInflater inflater  = LayoutInflater.from(parent.getContext());
 
-            View viewthatcontainscardview = inflater.inflate(R.layout.cardviewlocations,parent,false);
-            CardView cardView = (CardView) (viewthatcontainscardview.findViewById(R.id.cardview_category));
-            return new MyRecyclerAdapter2.MyViewHolder(cardView);
+            View viewthatcontainscardview = inflater.inflate(R.layout.view_fav_places_row_design,parent,false);
+//            CardView cardView = (CardView) (viewthatcontainscardview.findViewById(R.id.cardview_category));
+            return new MyRecyclerAdapter_Places.MyViewHolder(viewthatcontainscardview);
         }
 
 
         @Override
-        public void onBindViewHolder(MyRecyclerAdapter2.MyViewHolder holder, final int position) {
+        public void onBindViewHolder(MyRecyclerAdapter_Places.MyViewHolder holder, final int position) {
 
             CardView localcardview = holder.singlecardview;
             ImageView imv101;
             TextView tv_place_name,tv_catdesc;
-            imv101=(ImageView)(localcardview.findViewById(R.id.imvcardview_catphoto));
-            tv_place_name=(TextView)(localcardview.findViewById(R.id.tvcardview_catname));
+            imv101=(ImageView)(holder.itemView.findViewById(R.id.imvcardview_catphoto));
+            tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
+          Button button_plan_destination=(holder.itemView.findViewById(R.id.button_plan_destination));
+          Button button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
 
 //
             Toast.makeText(getActivity(), ""+arrayList.get(position).getPlace_name(), Toast.LENGTH_SHORT).show();
@@ -181,14 +184,22 @@ public class view_all_fav_places extends Fragment {
             tv_place_name.setText(places_details_obj.getPlace_name());
 
             Picasso.get().load(places_details_obj.getImages()).resize(500,500).centerInside().into(imv101);
-//            localcardview.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent in = new Intent(getContext(),View_Place_detail.class);
-//                    in.putExtra("obj",places_details_obj);
-//                    startActivity(in);
-//                }
-//            });
+
+            button_plan_destination.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            button_remove_fav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fetch_saved_places_mainref.child(temp_places_id_array_list.get(position).getFav_places_id()).removeValue();
+
+                }
+            });
+
         }
         @Override
         public int getItemCount() {
