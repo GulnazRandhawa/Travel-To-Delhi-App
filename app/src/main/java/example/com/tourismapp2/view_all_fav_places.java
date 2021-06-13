@@ -1,5 +1,6 @@
 package example.com.tourismapp2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -173,8 +175,8 @@ public class view_all_fav_places extends Fragment {
             TextView tv_place_name,tv_catdesc;
             imv101=(ImageView)(holder.itemView.findViewById(R.id.imvcardview_catphoto));
             tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
-          Button button_plan_destination=(holder.itemView.findViewById(R.id.button_plan_destination));
-          Button button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
+          LinearLayout button_plan_destination=(holder.itemView.findViewById(R.id.button_plan_destination));
+          LinearLayout button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
 
 //
             Toast.makeText(getActivity(), ""+arrayList.get(position).getPlace_name(), Toast.LENGTH_SHORT).show();
@@ -188,7 +190,9 @@ public class view_all_fav_places extends Fragment {
             button_plan_destination.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent in = new Intent(getContext().getApplicationContext(),Calendar.class);
+                    in.putExtra("place_id",places_details_obj.getPush_key()); // Sends that selected place's key to Manage reviews page
+                    startActivity(in);
                 }
             });
 

@@ -17,12 +17,11 @@
     <TextView
         android:layout_below="@id/image_slider"
         android:id="@+id/gastown_van"
-        android:layout_width="140dp"
+        android:layout_width="154dp"
         android:layout_height="34dp"
-        android:layout_marginTop="6dp"
-        android:text="Taj"
-
-        android:gravity="bottom"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:text="Taj Hotel"
         android:fontFamily="@font/opensans_regular"
         />
 

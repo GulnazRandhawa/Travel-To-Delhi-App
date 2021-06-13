@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +25,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.planner_details;
+import example.com.tourismapp2.classpack.user_added_fav_places_details;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,7 +41,8 @@ public class view_planned_destinations extends Fragment {
     ArrayList<planner_details> temp_planner_arraylist  = new ArrayList<>();
     ArrayList<places_details> arrayList = new ArrayList<>();
     DatabaseReference planner_ref,popular_destinaation_ref;
-
+    DatabaseReference fav_mainref;
+    boolean flag = false;
 
 
     public view_planned_destinations() {
@@ -71,7 +75,7 @@ public class view_planned_destinations extends Fragment {
         String email = sharedPreference.getString("email","");
 
         planner_ref = FirebaseDatabase.getInstance().getReference("Planners_Details");
-        popular_destinaation_ref = FirebaseDatabase.getInstance().getReference("popular_destination_details");
+        popular_destinaation_ref = FirebaseDatabase.getInstance().getReference("Places");
         planner_ref.orderByChild("email").equalTo(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -112,13 +116,85 @@ public class view_planned_destinations extends Fragment {
 
         @Override
         public void onBindViewHolder(MyRecyclerViewAdapter5.ViewHolder1 holder, int position) {
-//            ImageView twoDot=holder.itemView.findViewById(R.id.twodot);
-//            TextView timeDisplay=holder.itemView.findViewById(R.id.timeDisplay);
-//            TextView stanley_par=holder.itemView.findViewById(R.id.stanley_par);
-//            TextView street_name_desc=holder.itemView.findViewById(R.id.street_name);
 
-//            planner_details planner_obj = temp_planner_arraylist.get(position);
-//            places_details places_obj = arrayList.get(position);
+            ImageView imv101;
+            TextView tv_place_name,tv_catdesc;
+            imv101=(ImageView)(holder.itemView.findViewById(R.id.imvcardview_catphoto));
+            tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
+            LinearLayout button_save_for_later=(holder.itemView.findViewById(R.id.button_save_for_later));
+            LinearLayout button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
+            planner_details planner_obj = temp_planner_arraylist.get(position);
+            places_details places_obj = arrayList.get(position);
+
+
+            Picasso.get().load(places_obj.getImages()).into(imv101);
+            tv_place_name.setText(places_obj.getPlace_name());
+
+            button_save_for_later.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //
+                    flag = false;
+                    SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
+                    String email = sharedPreference.getString("email","");
+                    fav_mainref = FirebaseDatabase.getInstance().getReference("User_Added_Fav_Places");
+
+                    // check that same place is already added to fav list or not
+                    fav_mainref.orderByChild("user_email_id").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                for (DataSnapshot sin : snapshot.getChildren()){
+                                    user_added_fav_places_details temp_obj = sin.getValue(user_added_fav_places_details.class); //creating object of this class.
+
+                                    if(temp_obj.getPlaces_id().equals(places_obj.getPush_key())){ // matching ID of place from places_details class with the ID from user_addded place .
+                                        flag = true;
+                                        break;
+                                    }
+
+
+                                }
+
+                                if(flag){
+                                    Toast.makeText(getContext().getApplicationContext(), "This place is already exists into Fav List", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+
+                                    String key = fav_mainref.push().getKey();
+                                    user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,places_obj.getPush_key()); // creating new object of this class to push to firebase.
+                                    fav_mainref.child(key).setValue(fav_obj);
+                                    getActivity().finish();
+                                    Toast.makeText(getContext().getApplicationContext(), "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+                            else { //checking for a New user who has not previously added any fav place.
+                                String key = fav_mainref.push().getKey();
+                                user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,places_obj.getPush_key());
+                                fav_mainref.child(key).setValue(fav_obj);
+                                getActivity().finish();
+                                Toast.makeText(getContext().getApplicationContext(), "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            });
+
+            button_remove_fav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    planner_ref.child(planner_obj.getId()).removeValue();
+
+                }
+            });
 
 
 
