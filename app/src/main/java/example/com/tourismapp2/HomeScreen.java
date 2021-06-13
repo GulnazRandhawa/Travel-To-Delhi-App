@@ -48,8 +48,8 @@ public class HomeScreen extends AppCompatActivity {
                         return true;
                     case R.id.navigation_dashboard:
                         //calender
-//                        fragment = new User_Buy_Package();
-//                        loadFragment(fragment);
+                        fragment = new view_planned_destinations();
+                        loadFragment(fragment);
                         return true;
                     case R.id.navigation_notifications:
                         //fav

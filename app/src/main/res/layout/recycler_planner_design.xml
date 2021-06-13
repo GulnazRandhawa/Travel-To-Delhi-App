@@ -91,7 +91,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/mybutton"
-            android:text="Plan To Visit"
+            android:text="Save For Later"
             android:fontFamily="@font/opensans_regular"
             android:textColor="#ffffff" />
         <Button
