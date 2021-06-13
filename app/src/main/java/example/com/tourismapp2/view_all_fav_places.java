@@ -116,7 +116,7 @@ public class view_all_fav_places extends Fragment {
                     Log.d("Hello-msg",snapshot.toString());
                     if(snapshot.exists()){
                         places_details obj3 = snapshot.getValue(places_details.class);
-//                        arrayList.add(obj3); //adding the place's details into the arraylist from object created above.
+                        arrayList.add(obj3); //adding the place's details into the arraylist from object created above.
                         //notify change
 //                        Toast.makeText(getActivity(), ""+arrayList.size(), Toast.LENGTH_SHORT).show();
                         myad_view.notifyDataSetChanged();
