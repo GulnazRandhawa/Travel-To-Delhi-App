@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    android:id="@+id/cardview_category"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="#ffffff">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="15dp">
+
+        <ImageView
+            android:id="@+id/imvcardview_catphoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvcardview_catname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/opensans_regular"
+            android:layout_centerVertical="true"
+            android:text="Hello"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:src="@drawable/star_vector"
+            android:layout_gravity="end"
+            android:layout_width="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/tvcardview_cat"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:id="@+id/tvcardview_cat"
+            android:textAlignment="gravity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="4.3"
+            android:fontFamily="@font/opensans_regular"
+            android:textColor="@android:color/black"
+            android:textColorHighlight="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
+        android:weightSum="2"
+        android:background="@drawable/background5">
+
+        <LinearLayout
+            android:id="@+id/button_plan_destination"
+            android:layout_width="0dp"
+            android:layout_weight="0.99"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_blue_heart"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans_regular"
+                android:text="Plan To Visit"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"/>
+
+        <LinearLayout
+            android:id="@+id/button_remove_fav"
+            android:layout_width="0dp"
+            android:layout_weight="0.99"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_black_delete"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans_regular"
+                android:text="Delete"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

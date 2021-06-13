@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -98,10 +99,10 @@ DatabaseReference mainref;
 
             // We have Changed View (which represent single row) to CardView in whole code
 
-            public MyViewHolder(CardView itemView) {
+            public MyViewHolder(View itemView) {
 
                 super(itemView);
-                singlecardview = (itemView);
+                singlecardview = (itemView.findViewById(R.id.card));
             }
 
         }
@@ -114,8 +115,8 @@ DatabaseReference mainref;
             LayoutInflater inflater  = LayoutInflater.from(parent.getContext());
 
             View viewthatcontainscardview = inflater.inflate(R.layout.cardviewlocations,parent,false);
-            CardView cardView = (CardView) (viewthatcontainscardview.findViewById(R.id.cardview_category));
-            return new MyViewHolder(cardView);
+//            LinearLayout cardView = (CardView) (viewthatcontainscardview.findViewById(R.id.cardview_category));
+            return new MyViewHolder(viewthatcontainscardview);
         }
 
 
@@ -126,7 +127,7 @@ DatabaseReference mainref;
             ImageView imv101;
             TextView tv_place_name,tv_catdesc;
             imv101=(ImageView)(localcardview.findViewById(R.id.imvcardview_catphoto));
-            tv_place_name=(TextView)(localcardview.findViewById(R.id.tvcardview_catname));
+            tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
 
 //
             places_details places_details_obj=al.get(position);

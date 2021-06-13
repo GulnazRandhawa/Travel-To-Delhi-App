@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -16,7 +17,9 @@ import example.com.tourismapp2.classpack.places_details;
 
 public class Login_Signup extends AppCompatActivity {
 
-    Button button_login,button_signup;
+    Button button_login;
+    TextView button_signup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
