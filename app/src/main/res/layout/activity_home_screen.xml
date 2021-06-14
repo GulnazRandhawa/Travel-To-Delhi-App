@@ -16,7 +16,9 @@
         app:itemBackground="@color/app_bg_color"
         android:layout_marginEnd="0dp"
        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/color"
+        />
 
     <fragment
         android:id="@+id/nav_host_fragment"
