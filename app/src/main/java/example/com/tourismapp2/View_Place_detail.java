@@ -75,6 +75,16 @@ public class View_Place_detail extends AppCompatActivity {
 
             }
         });
+        //Working on 'Calendar' icon on home screen
+        img_add_calaneder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getApplicationContext(),Calendar.class);
+                in.putExtra("place_id",obj.getPush_key()); // Sends that selected place's key to Calendpage
+                startActivity(in);
+            }
+        });
+
         img_add_fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,5 +1,6 @@
 package example.com.tourismapp2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -64,6 +65,13 @@ public class view_all_fav_places extends Fragment {
         super.onStart();
         SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
         String email = sharedPreference.getString("email","");
+
+        getActivity().findViewById(R.id.backIv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 //
 
         rcv_managecategory_showcategory=getActivity().findViewById(R.id.view_all_saved);
@@ -189,7 +197,9 @@ public class view_all_fav_places extends Fragment {
             button_plan_destination.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent in = new Intent(getContext().getApplicationContext(),Calendar.class);
+                    in.putExtra("place_id",places_details_obj.getPush_key()); // Sends that selected place's key to Manage reviews page
+                    startActivity(in);
                 }
             });
 

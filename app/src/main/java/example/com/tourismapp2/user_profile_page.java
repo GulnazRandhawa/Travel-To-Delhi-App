@@ -32,4 +32,15 @@ public class user_profile_page extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile_page, container, false);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().findViewById(R.id.backIv1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+    }
 }

@@ -23,7 +23,7 @@
 
         <ImageView
             android:id="@+id/imvcardview_catphoto"
-            android:layout_width="match_parent"
+            android:layout_width="375dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
@@ -87,7 +87,7 @@
         android:background="@drawable/background5">
 
         <LinearLayout
-            android:id="@+id/button_plan_destination"
+            android:id="@+id/button_save_for_later"
             android:layout_width="0dp"
             android:layout_weight="0.99"
             android:layout_height="match_parent"
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:textSize="12sp"
                 android:fontFamily="@font/opensans_regular"
-                android:text="Plan To Visit"
+                android:text="Saved For Later"
                 android:gravity="center"
                 android:layout_marginStart="8dp"
                 android:textColor="@android:color/black"
