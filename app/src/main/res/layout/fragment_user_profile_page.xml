@@ -26,6 +26,7 @@
             />
 
         <ImageView
+            android:id="@+id/logout7"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_on_off_button"

@@ -1,5 +1,6 @@
 package example.com.tourismapp2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,7 +35,30 @@ public class HomeScreen extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         //load View all places
-        loadFragment(new ViewAllPlaces());
+
+        Intent intent=getIntent();
+        int value =intent.getIntExtra("VALUE",1);
+        if(value==2)
+        {
+          loadFragment(new view_planned_destinations());
+          navView.setSelectedItemId(R.id.navigation_dashboard);
+        }
+        else if(value==3)
+        {
+           loadFragment(new view_all_fav_places());
+           navView.setSelectedItemId(R.id.navigation_notifications);
+        }
+        else if(value==4)
+
+        {
+            loadFragment(new user_profile_page());
+            navView.setSelectedItemId(R.id.navigation_profile);
+        }
+        else
+        {
+            loadFragment(new ViewAllPlaces());
+        }
+
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

@@ -9,7 +9,8 @@
     android:layout_height="match_parent">
 <ScrollView  android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View_Place_detail">
+    tools:context=".View_Place_detail"
+    android:layout_above="@+id/nav_view">
 
 
     <LinearLayout
@@ -25,6 +26,7 @@
             >
 
             <ImageView
+                android:id="@+id/back3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_back"
@@ -35,6 +37,7 @@
                 />
 
             <ImageView
+                android:id="@+id/logout8"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_on_off_button"
@@ -310,5 +313,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/color"
+        app:itemTextColor="@color/color"
+        app:labelVisibilityMode="labeled"
         />
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package example.com.tourismapp2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,6 +49,26 @@ DatabaseReference mainref;
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().findViewById(R.id.logout5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+                editor.clear();
+                editor.apply();
+                getActivity().finish();
+                Intent intent=new Intent(getActivity(),Login_Signup.class);
+                startActivity(intent);
+
+
+
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -55,6 +77,7 @@ DatabaseReference mainref;
         al=new ArrayList<places_details>();
 
         rcv_managecategory_showcategory=v.findViewById(R.id.view_all_places);
+
 
         myad=new MyRecyclerAdapter();
 
@@ -108,6 +131,7 @@ DatabaseReference mainref;
         }
 
 
+
         // Inflate ur Single Row / CardView from XML here
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -141,9 +165,11 @@ DatabaseReference mainref;
                     Intent in = new Intent(getContext(),View_Place_detail.class);
                     in.putExtra("obj",places_details_obj);
                     startActivity(in);
+                    getActivity().finish();
                 }
             });
         }
+
         @Override
         public int getItemCount() {
             return al.size();

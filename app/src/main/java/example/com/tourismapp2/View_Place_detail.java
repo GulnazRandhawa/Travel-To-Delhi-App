@@ -2,19 +2,23 @@ package example.com.tourismapp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,12 +62,82 @@ public class View_Place_detail extends AppCompatActivity {
         all_reviews = findViewById(R.id.all_reviews);
         img_add_calaneder = findViewById(R.id.img_add_calaneder);
         img_add_fav = findViewById(R.id.img_add_fav);
+        findViewById(R.id.back3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent=new Intent(View_Place_detail.this,HomeScreen.class);
+                Intent.putExtra("VALUE",1);
+                finish();
+                startActivity(Intent);
+            }
+        });
+       findViewById(R.id.logout8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreference=getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+                editor.clear();
+                editor.apply();
+             finish();
+                Intent intent=new Intent(View_Place_detail.this,Login_Signup.class);
+                startActivity(intent);
+
+
+
+            }
+        });
 
         Picasso.get().load(obj.getImages()).into(place_image);
         placename.setText(obj.getPlace_name());
         placedesc.setText(obj.getDescription());
         SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
         String email = sharedPreference.getString("email","");
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        Intent backIntent=new Intent(View_Place_detail.this,HomeScreen.class);
+
+        //load View all places
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment;
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_home:
+                        //home
+
+                        return true;
+                    case R.id.navigation_dashboard:
+                        //calender
+                        backIntent.putExtra("VALUE",2);
+                        finish();
+                        startActivity(backIntent);
+                        return true;
+                    case R.id.navigation_notifications:
+                        //fav
+                        backIntent.putExtra("VALUE",3);
+                        finish();
+                        startActivity(backIntent);
+                        return true;
+                    case R.id.navigation_profile:
+                        //profile
+                        backIntent.putExtra("VALUE",4);
+                        finish();
+                        startActivity(backIntent);
+
+                        return true;
+
+
+
+
+
+
+                }
+
+
+                return false;
+            }
+        });
+
 
 
         all_reviews.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +186,9 @@ public class View_Place_detail extends AppCompatActivity {
                                 String key = fav_mainref.push().getKey();
                                 user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,obj.getPush_key()); // creating new object of this class to push to firebase.
                                 fav_mainref.child(key).setValue(fav_obj);
+                                backIntent.putExtra("VALUE",3);
                                 finish();
+                                startActivity(backIntent);
                                 Toast.makeText(View_Place_detail.this, "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
 
                             }
@@ -122,7 +198,9 @@ public class View_Place_detail extends AppCompatActivity {
                             String key = fav_mainref.push().getKey();
                             user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,obj.getPush_key());
                             fav_mainref.child(key).setValue(fav_obj);
+                            backIntent.putExtra("VALUE",3);
                             finish();
+                            startActivity(backIntent);
                             Toast.makeText(View_Place_detail.this, "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
 
                         }

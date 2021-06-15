@@ -1,5 +1,6 @@
 package example.com.tourismapp2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -72,6 +73,21 @@ public class view_all_fav_places extends Fragment {
                 getActivity().finish();
             }
         });
+        getActivity().findViewById(R.id.logout6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+                editor.clear();
+                editor.apply();
+                getActivity().finish();
+                Intent intent=new Intent(getActivity(),Login_Signup.class);
+                startActivity(intent);
+
+
+
+            }
+        });
 //
 
         rcv_managecategory_showcategory=getActivity().findViewById(R.id.view_all_saved);
@@ -116,7 +132,9 @@ public class view_all_fav_places extends Fragment {
     }
 
     public void fetch_places_details(){
-        for (int i = 0 ; i < temp_places_id_array_list.size() ; i++){ //running the for loop till the length of array list containing user's fav places.
+
+        for (int i = 0 ; i < temp_places_id_array_list.size() ; i++){
+            //running the for loop till the length of array list containing user's fav places.
 
             String place_id = temp_places_id_array_list.get(i).getPlaces_id(); // obtaining the ID of fav place from array list.
             fetch_places.child(place_id).addListenerForSingleValueEvent(new ValueEventListener() { //Matching the ID from arraylist with the corr. place ID in Place details tre.
@@ -126,6 +144,7 @@ public class view_all_fav_places extends Fragment {
                     if(snapshot.exists()){
                         places_details obj3 = snapshot.getValue(places_details.class);
                         arrayList.add(obj3); //adding the place's details into the arraylist from object created above.
+
                         //notify change
 //                        Toast.makeText(getActivity(), ""+arrayList.size(), Toast.LENGTH_SHORT).show();
                         myad_view.notifyDataSetChanged();
@@ -138,6 +157,7 @@ public class view_all_fav_places extends Fragment {
                 }
             });
         }
+
 
     }
 
