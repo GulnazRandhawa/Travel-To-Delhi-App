@@ -11,9 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +40,7 @@ public class ViewAllPlaces extends Fragment {
     ArrayList<places_details> al;
 MyRecyclerAdapter myad;
 DatabaseReference mainref;
+EditText searchEt;
     public ViewAllPlaces() {
         // Required empty public constructor
     }
@@ -66,6 +70,37 @@ DatabaseReference mainref;
 
             }
         });
+        searchEt=getActivity().findViewById(R.id.searchEt);
+        searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+
+            }
+        });
+    }
+
+    void filter(String text){
+        ArrayList<places_details> temp = new ArrayList();
+        for(places_details d: al){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(d.getPlace_name().toLowerCase().contains(text.toLowerCase())){
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        myad.updateList(temp);
     }
 
     @Override
@@ -97,6 +132,7 @@ DatabaseReference mainref;
                         places_details obj = sin.getValue(places_details.class);
                         al.add(obj);
                     }
+                    myad.setArrayList(al);
                     myad.notifyDataSetChanged();
                 }
             }
@@ -115,6 +151,8 @@ DatabaseReference mainref;
         class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>
     {
 
+        ArrayList<places_details> arrayList=new ArrayList<>();
+
         // Define ur own View Holder (Refers to Single Row)
         class MyViewHolder extends RecyclerView.ViewHolder
         {
@@ -132,6 +170,8 @@ DatabaseReference mainref;
 
 
 
+
+
         // Inflate ur Single Row / CardView from XML here
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -143,6 +183,15 @@ DatabaseReference mainref;
             return new MyViewHolder(viewthatcontainscardview);
         }
 
+        public void setArrayList(ArrayList<places_details> arrayList) {
+            this.arrayList = arrayList;
+        }
+
+        public void updateList(ArrayList<places_details> places_details)
+        {
+            arrayList=places_details;
+            notifyDataSetChanged();
+        }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, final int position) {
@@ -152,11 +201,14 @@ DatabaseReference mainref;
             TextView tv_place_name,tv_catdesc;
             imv101=(ImageView)(localcardview.findViewById(R.id.imvcardview_catphoto));
             tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
+            TextView tvcardview_cat=holder.itemView.findViewById(R.id.tvcardview_cat);
+
 
 //
-            places_details places_details_obj=al.get(position);
+            places_details places_details_obj=arrayList.get(position);
 
             tv_place_name.setText(places_details_obj.getPlace_name());
+            tvcardview_cat.setText(places_details_obj.getRating());
 
             Picasso.get().load(places_details_obj.getImages()).resize(500,500).centerInside().into(imv101);
             localcardview.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +224,7 @@ DatabaseReference mainref;
 
         @Override
         public int getItemCount() {
-            return al.size();
+            return arrayList.size();
         }
     }
 }
