@@ -7,7 +7,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view_planned_destinations">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/app_bg_color"
 
+
+        >
+
+        <ImageView
+            android:id="@+id/backIv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+
+            />
+
+        <ImageView
+            android:id="@+id/logout6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_on_off_button"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            />
+
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardRv"
         android:layout_width="match_parent"
@@ -15,5 +45,31 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="10dp"
         android:nestedScrollingEnabled="false"/>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_plus"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensans_regular"
+            android:text="Add new trip"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/black"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

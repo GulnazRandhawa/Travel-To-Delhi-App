@@ -52,7 +52,6 @@
         android:id="@+id/view_all_saved"
         android:layout_width="match_parent"
         android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="false"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
