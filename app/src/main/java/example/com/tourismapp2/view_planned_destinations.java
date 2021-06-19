@@ -1,6 +1,8 @@
 package example.com.tourismapp2;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -77,6 +79,28 @@ public class view_planned_destinations extends Fragment {
         SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
         String email = sharedPreference.getString("email","");
 
+        getActivity().findViewById(R.id.backIv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+        getActivity().findViewById(R.id.logout6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+                editor.clear();
+                editor.apply();
+                getActivity().finish();
+                Intent intent=new Intent(getActivity(),Login_Signup.class);
+                startActivity(intent);
+
+
+
+            }
+        });
+        //
         planner_ref = FirebaseDatabase.getInstance().getReference("Planners_Details");
         popular_destinaation_ref = FirebaseDatabase.getInstance().getReference("Places");
         planner_ref.orderByChild("email").equalTo(email).addValueEventListener(new ValueEventListener() {
@@ -173,7 +197,7 @@ public class view_planned_destinations extends Fragment {
                                     String key = fav_mainref.push().getKey();
                                     user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,places_obj.getPush_key()); // creating new object of this class to push to firebase.
                                     fav_mainref.child(key).setValue(fav_obj);
-                                    getActivity().finish();
+
                                     Toast.makeText(getContext().getApplicationContext(), "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
 
                                 }
@@ -183,7 +207,7 @@ public class view_planned_destinations extends Fragment {
                                 String key = fav_mainref.push().getKey();
                                 user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,places_obj.getPush_key());
                                 fav_mainref.child(key).setValue(fav_obj);
-                                getActivity().finish();
+
                                 Toast.makeText(getContext().getApplicationContext(), "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
 
                             }

@@ -7,233 +7,233 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<ScrollView  android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".View_Place_detail"
-    android:layout_above="@+id/nav_view">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView  android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <RelativeLayout
+        tools:context=".View_Place_detail"
+        android:layout_above="@+id/nav_view">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:background="@color/app_bg_color"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:background="@color/app_bg_color"
 
 
-            >
+                >
 
-            <ImageView
-                android:id="@+id/back3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_back"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
+                <ImageView
+                    android:id="@+id/back3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
 
-                />
+                    />
 
-            <ImageView
-                android:id="@+id/logout8"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_on_off_button"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                />
+                <ImageView
+                    android:id="@+id/logout8"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_on_off_button"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    />
 
-        </RelativeLayout>
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="185dp"
-            android:layout_margin="15dp"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="15dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:background="#ffffff">
+            </RelativeLayout>
 
 
-
-
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/image_slider"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                app:iss_auto_cycle="true"
-                app:iss_period="3000"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="15dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:background="#ffffff">
 
-                app:iss_delay="0"/>
-<!--                <ImageView-->
-<!--                    android:id="@+id/place_image"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:scaleType="fitXY"-->
-<!--                    android:visibility="gone"-->
-<!--                    android:src="@drawable/ic_launcher_background" />-->
 
+
+
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/image_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        app:iss_auto_cycle="true"
+                        app:iss_period="3000"
+
+                        app:iss_delay="0"/>
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/place_image"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="match_parent"-->
+                    <!--                    android:scaleType="fitXY"-->
+                    <!--                    android:visibility="gone"-->
+                    <!--                    android:src="@drawable/ic_launcher_background" />-->
+
+
+                    <ImageView
+                        android:id="@+id/img_add_calaneder"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="21dp"
+                        android:layout_marginTop="21dp"
+                        android:src="@drawable/cal_v"
+
+                        />
+                    <ImageView
+                        android:id="@+id/img_add_fav"
+                        android:layout_below="@+id/img_add_calaneder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginEnd="21dp"
+                        android:src="@drawable/fav_v"
+                        />
+
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/placename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/opensans_regular"
+                android:lineHeight="21dp"
+                android:textColor="#000000"
+                android:textFontWeight="700"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:text="Description/About"
+                android:textColor="#000000"
+                android:layout_marginTop="9dp"
+                android:textFontWeight="600"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/placedesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/opensans_regular"
+                android:textColor="#000000"
+                android:textFontWeight="400"
+                android:layout_marginTop="4dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:lineHeight="22dp"
+                android:text="Reviews"
+                android:textColor="#000000"
+                android:textFontWeight="600"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:id="@+id/addNewReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+
+                >
 
                 <ImageView
-                    android:id="@+id/img_add_calaneder"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
 
+                    android:src="@drawable/ellipse4" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="21dp"
-                    android:layout_marginTop="21dp"
-                    android:src="@drawable/cal_v"
-
-                 />
-                <ImageView
-                    android:id="@+id/img_add_fav"
-                    android:layout_below="@+id/img_add_calaneder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                  android:layout_marginTop="21dp"
-                    android:layout_marginEnd="21dp"
-                    android:src="@drawable/fav_v"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="Add a review ...."
+                    android:layout_gravity="center"
+                    android:layout_marginStart="9dp"
+                    android:textColor="@android:color/black"
                     />
 
 
 
-        </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/placename"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/opensans_regular"
-            android:lineHeight="21dp"
-            android:textColor="#000000"
-            android:textFontWeight="700"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/opensans_semibold"
-            android:text="Description/About"
-            android:textColor="#000000"
-            android:layout_marginTop="9dp"
-            android:textFontWeight="600"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/placedesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/opensans_regular"
-            android:textColor="#000000"
-            android:textFontWeight="400"
-            android:layout_marginTop="4dp"
-            android:textSize="16dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/opensans_semibold"
-            android:lineHeight="22dp"
-            android:text="Reviews"
-            android:textColor="#000000"
-            android:textFontWeight="600"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp" />
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/addNewReview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:layout_marginStart="16dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ratingsRv"
 
-            >
+                android:layout_width="match_parent"
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"/>
 
-                android:src="@drawable/ellipse4" />
+
+            <TextView
+                android:id="@+id/all_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/opensans_regular"
+                android:text="Read All Reviews"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:layout_marginTop="4dp"
+                />
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:fontFamily="@font/opensans_regular"
-                android:text="Add a review ...."
-                android:layout_gravity="center"
-                android:layout_marginStart="9dp"
-                android:textColor="@android:color/black"
-                />
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:text="Nearby Hotels"
+                android:layout_marginTop="8dp"
+                android:textColor="#000000"
+                android:textFontWeight="600"
+                android:textSize="16sp" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popularDesRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                />
 
 
         </LinearLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ratingsRv"
 
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"/>
-
-
-        <TextView
-            android:id="@+id/all_reviews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/opensans_regular"
-            android:text="Read All Reviews"
-            android:textColor="#000000"
-            android:textSize="22sp"
-            android:layout_marginTop="4dp"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/opensans_semibold"
-            android:text="Nearby Hotels"
-            android:layout_marginTop="8dp"
-            android:textColor="#000000"
-            android:textFontWeight="600"
-            android:textSize="16sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popularDesRv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
-            />
-
-
-    </LinearLayout>
-
-
-
-</ScrollView>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
