@@ -202,6 +202,8 @@ public class view_all_fav_places extends Fragment {
             TextView tv_place_name,tv_catdesc;
             imv101=(ImageView)(holder.itemView.findViewById(R.id.imvcardview_catphoto));
             tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
+            TextView rating=holder.itemView.findViewById(R.id.rating2);
+            rating.setText(arrayList.get(position).getRating());
           LinearLayout button_plan_destination=(holder.itemView.findViewById(R.id.button_plan_destination));
           LinearLayout button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
 

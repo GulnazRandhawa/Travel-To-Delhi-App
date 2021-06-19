@@ -33,7 +33,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import example.com.tourismapp2.classpack.HotelDetail;
 import example.com.tourismapp2.classpack.places_details;
+import example.com.tourismapp2.classpack.rating_details;
 import example.com.tourismapp2.classpack.user_added_fav_places_details;
 
 public class View_Place_detail extends AppCompatActivity {
@@ -44,10 +46,13 @@ public class View_Place_detail extends AppCompatActivity {
     ImageView img_add_calaneder,img_add_fav;
     DatabaseReference fav_mainref;
     boolean flag = false;
-    RecyclerView popularDesRv;
+    RecyclerView popularDesRv,ratingRv;
     MyRecyclerViewAdapter adapter;
     ImageSlider imageSlider;
+    MyRecyclerViewAdapter1 adapter1;
     ArrayList<SlideModel>imagesList=new ArrayList<>();
+    ArrayList<rating_details>ratingArrayList=new ArrayList<>();
+   ArrayList<HotelDetail>hotelList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +65,85 @@ public class View_Place_detail extends AppCompatActivity {
         popularDesRv = findViewById(R.id.popularDesRv);
 
         adapter = new MyRecyclerViewAdapter();
+        adapter1=new MyRecyclerViewAdapter1();
         popularDesRv.setAdapter(adapter);
         popularDesRv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
         //
         fav_mainref = FirebaseDatabase.getInstance().getReference("User_Added_Fav_Places");
-
         placename = findViewById(R.id.placename);
         placedesc = findViewById(R.id.placedesc);
         all_reviews = findViewById(R.id.all_reviews);
         img_add_calaneder = findViewById(R.id.img_add_calaneder);
         img_add_fav = findViewById(R.id.img_add_fav);
         imageSlider=findViewById(R.id.image_slider);
+        ratingRv=findViewById(R.id.ratingsRv);
+        ratingRv.setAdapter(adapter1);
+        ratingRv.setLayoutManager(new LinearLayoutManager(this));
+
+
+        FirebaseDatabase.getInstance().getReference("Ratings").child(obj.getPush_key()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                ratingArrayList.clear();
+                for(DataSnapshot sin :snapshot.getChildren())
+                {
+                    rating_details rating_details=sin.getValue(example.com.tourismapp2.classpack.rating_details.class);
+                    ratingArrayList.add(rating_details);
+
+                }
+
+                ArrayList<rating_details>details=new ArrayList<>();
+                details.add(ratingArrayList.get(0));
+                adapter1.setRatingList(details);
+                adapter1.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+        FirebaseDatabase.getInstance().getReference("hotels").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                hotelList.clear();
+                for(DataSnapshot sin:snapshot.getChildren())
+                {
+                    HotelDetail hotelDetail=sin.getValue(HotelDetail.class);
+                    hotelList.add(hotelDetail);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        findViewById(R.id.addNewReview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(View_Place_detail.this,Post_Review.class);
+                intent.putExtra("places_key",obj.getPush_key());
+                startActivity(intent);
+            }
+        });
+        all_reviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter1.setRatingList(ratingArrayList);
+                adapter1.notifyDataSetChanged();
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference("Images_Gallery").child(obj.getPush_key()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                if(snapshot.exists())
                {
+                   imagesList.clear();
                    for(DataSnapshot sin:snapshot.getChildren())
                    {
                        String image=sin.getValue(String.class);
@@ -171,15 +237,15 @@ public class View_Place_detail extends AppCompatActivity {
 
 
 
-        all_reviews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in = new Intent(getApplicationContext(),Manage_Reviews.class);
-                in.putExtra("places_key",obj.getPush_key()); // Sends that selected place's key to Manage reviews page
-                startActivity(in);
-
-            }
-        });
+//        all_reviews.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent in = new Intent(getApplicationContext(),Manage_Reviews.class);
+//                in.putExtra("places_key",obj.getPush_key()); // Sends that selected place's key to Manage reviews page
+//                startActivity(in);
+//
+//            }
+//        });
         //Working on 'Calendar' icon on home screen
         img_add_calaneder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,12 +335,93 @@ public class View_Place_detail extends AppCompatActivity {
             ImageView image_slider = localcardview.findViewById(R.id.image_slider);
             TextView gastown_van = localcardview.findViewById(R.id.gastown_van);
 
+            Picasso.get().load(hotelList.get(position).getPic()).into(image_slider);
+            gastown_van.setText(hotelList.get(position).getName());
+
+
 
         }
 
         @Override
         public int getItemCount() {
-            return 3;
+            return hotelList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
+    }
+
+    public class MyRecyclerViewAdapter1 extends RecyclerView.Adapter<MyRecyclerViewAdapter1.ViewHolder> {
+    ArrayList<rating_details>ratingList=new ArrayList<>();
+
+        @NonNull
+        @Override
+        public MyRecyclerViewAdapter1.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = getLayoutInflater().inflate(R.layout.rating_design_rv, parent, false); // single row design
+            return new ViewHolder(view);
+        }
+
+        public void setRatingList(ArrayList<rating_details>list)
+        {
+            ratingList=list;
+        }
+
+        @Override
+        public void onBindViewHolder(MyRecyclerViewAdapter1.ViewHolder holder, int position) {
+            View localcardview = holder.itemView;
+          TextView lastReview=  holder.itemView.findViewById(R.id.lastreview_text);
+
+          if (ratingList.get(position).getRating()==1)
+          {
+            holder.itemView.findViewById(R.id.star1).setVisibility(View.VISIBLE);
+          }
+          else if(ratingList.get(position).getRating()==2)
+          {
+              holder.itemView.findViewById(R.id.star1).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star2).setVisibility(View.VISIBLE);
+
+          }
+          else if(ratingList.get(position).getRating()==3)
+          {
+              holder.itemView.findViewById(R.id.star1).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star2).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star3).setVisibility(View.VISIBLE);
+
+
+          }
+          else if(ratingList.get(position).getRating()==4)
+          {
+              holder.itemView.findViewById(R.id.star1).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star2).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star3).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star4).setVisibility(View.VISIBLE);
+
+
+          }
+          else
+          {
+
+              holder.itemView.findViewById(R.id.star1).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star2).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star3).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star4).setVisibility(View.VISIBLE);
+              holder.itemView.findViewById(R.id.star5).setVisibility(View.VISIBLE);
+
+          }
+
+
+            lastReview.setText(ratingList.get(position).getComment());
+
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return ratingList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

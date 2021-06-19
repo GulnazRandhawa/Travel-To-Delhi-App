@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    >
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+
+        android:src="@drawable/ellipse4" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lastreview_name"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="John"
+            android:fontFamily="@font/opensans_regular"
+            android:textColor="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/star1"
+                android:src="@drawable/star_vector"
+
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/star2"
+                android:visibility="gone"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/star_vector"
+
+                android:layout_width="17dp"
+                android:layout_height="17dp"/>
+            <ImageView
+                android:id="@+id/star3"
+                android:visibility="gone"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/star_vector"
+
+                android:layout_width="17dp"
+                android:layout_height="17dp"/>
+            <ImageView
+                android:id="@+id/star4"
+                android:visibility="gone"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/star_vector"
+
+                android:layout_width="17dp"
+                android:layout_height="17dp"/>
+            <ImageView
+                android:id="@+id/star5"
+                android:visibility="gone"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/star_vector"
+
+                android:layout_width="17dp"
+                android:layout_height="17dp"/>
+
+
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lastreview_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_regular"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:text="Qutb Minar is one of the tallest individual towers in world. It was so mesmerizing experience to here.Place is so weel maintained." />
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
