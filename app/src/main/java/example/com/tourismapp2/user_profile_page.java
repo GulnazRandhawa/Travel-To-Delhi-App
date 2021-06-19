@@ -10,12 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class user_profile_page extends Fragment {
 
 
-
+TextView tv_setting,tv_send_feedback;
 
     public user_profile_page() {
         // Required empty public constructor
@@ -57,6 +58,24 @@ public class user_profile_page extends Fragment {
                 startActivity(intent);
 
 
+
+            }
+        });
+
+        tv_setting  = getActivity().findViewById(R.id.tv_setting);
+        tv_send_feedback  = getActivity().findViewById(R.id.tv_send_feedback);
+        tv_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        tv_send_feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getActivity(),Post_Feedback.class);
+                startActivity(in);
 
             }
         });

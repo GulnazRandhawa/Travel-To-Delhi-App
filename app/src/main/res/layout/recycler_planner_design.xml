@@ -50,6 +50,18 @@
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/tvcardview_catname"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/opensans_regular"
+            android:text="date"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+             />
         <ImageView
             android:src="@drawable/star_vector"
             android:layout_gravity="end"
@@ -57,11 +69,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="5dp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/tvcardview_cat"
+            android:layout_toStartOf="@+id/rating1"
             android:layout_height="20dp"/>
 
         <TextView
-            android:id="@+id/tvcardview_cat"
+            android:id="@+id/rating1"
             android:textAlignment="gravity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,8 +119,9 @@
                 android:fontFamily="@font/opensans_regular"
                 android:text="Saved For Later"
                 android:gravity="center"
+
                 android:layout_marginStart="8dp"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 />
 
         </LinearLayout>
@@ -140,7 +153,7 @@
                 android:text="Delete"
                 android:gravity="center"
                 android:layout_marginStart="8dp"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 />
 
         </LinearLayout>

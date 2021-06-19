@@ -26,7 +26,7 @@ public class Post_Review extends AppCompatActivity {
     private TextView tvRateCount,tvRateMessage;
     String id;
     String email,places_key;
-    private float ratedValue;
+    private int ratedValue;
     EditText edcomment;
     String comment;
     DatabaseReference mainref;
@@ -63,7 +63,7 @@ d1 = ft.format(dNow);
 
                                         boolean fromUser) {
 
-                ratedValue = ratingBar.getRating();
+                ratedValue = Math.round(ratingBar.getRating());
 
                 tvRateCount.setText("Your Rating : "
 

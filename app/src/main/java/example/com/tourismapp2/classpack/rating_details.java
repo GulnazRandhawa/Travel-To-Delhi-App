@@ -5,11 +5,11 @@ public class rating_details {
     String  comment="" , emailid="",places_key="",rating_id="",rating_date ="";
     long date_time =0;
 
-    float rating = 0;
+    int rating = 0;
     public rating_details() {
     }
 
-    public rating_details(String comment, String emailid, String places_key, String rating_id, String rating_date, long date_time, float rating) {
+    public rating_details(String comment, String emailid, String places_key, String rating_id, String rating_date, long date_time, int rating) {
         this.comment = comment;
         this.emailid = emailid;
         this.places_key = places_key;
@@ -51,11 +51,11 @@ public class rating_details {
         this.rating_id = rating_id;
     }
 
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

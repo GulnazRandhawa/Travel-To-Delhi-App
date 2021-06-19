@@ -44,44 +44,21 @@
 
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/view_all_saved"
-        android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ic_plus"
-            android:layout_gravity="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="@font/opensans_regular"
-            android:text="Add new trip"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:textColor="@android:color/black"
-            />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/view_all_saved"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"/>
 
-    </LinearLayout>
+
+
+        </LinearLayout>
     </ScrollView>
 
 

@@ -57,11 +57,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="5dp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/tvcardview_cat"
+            android:layout_toStartOf="@+id/rating2"
             android:layout_height="20dp"/>
 
         <TextView
-            android:id="@+id/tvcardview_cat"
+            android:id="@+id/rating2"
             android:textAlignment="gravity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 android:text="Plan To Visit"
                 android:gravity="center"
                 android:layout_marginStart="8dp"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 />
 
         </LinearLayout>
@@ -140,7 +140,7 @@
                 android:text="Delete"
                 android:gravity="center"
                 android:layout_marginStart="8dp"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 />
 
         </LinearLayout>
