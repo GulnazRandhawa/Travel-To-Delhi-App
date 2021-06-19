@@ -64,12 +64,22 @@
 
 
 
-                <ImageView
-                    android:id="@+id/place_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher_background" />
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                app:iss_auto_cycle="true"
+                app:iss_period="3000"
+
+                app:iss_delay="0"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/place_image"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:scaleType="fitXY"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:src="@drawable/ic_launcher_background" />-->
 
 
                 <ImageView

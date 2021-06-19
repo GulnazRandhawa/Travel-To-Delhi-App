@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class places_details implements Serializable {
     String place_name,images,description,push_key;
-    double rating = 4.6;
+    String rating ;
 
     public places_details() {
     }
 
-    public places_details(String place_name, String images, String description, String push_key, double rating) {
+    public places_details(String place_name, String images, String description, String push_key, String rating) {
         this.place_name = place_name;
         this.images = images;
         this.description = description;
@@ -49,11 +49,11 @@ public class places_details implements Serializable {
         this.push_key = push_key;
     }
 
-    public double getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 }

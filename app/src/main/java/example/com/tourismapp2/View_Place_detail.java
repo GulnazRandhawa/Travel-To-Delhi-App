@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,11 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.user_added_fav_places_details;
 
 public class View_Place_detail extends AppCompatActivity {
-    ImageView place_image;
+
     TextView placename;
     TextView placedesc,all_reviews;
 
@@ -39,6 +46,8 @@ public class View_Place_detail extends AppCompatActivity {
     boolean flag = false;
     RecyclerView popularDesRv;
     MyRecyclerViewAdapter adapter;
+    ImageSlider imageSlider;
+    ArrayList<SlideModel>imagesList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +65,34 @@ public class View_Place_detail extends AppCompatActivity {
 
         //
         fav_mainref = FirebaseDatabase.getInstance().getReference("User_Added_Fav_Places");
-        place_image = findViewById(R.id.place_image);
+
         placename = findViewById(R.id.placename);
         placedesc = findViewById(R.id.placedesc);
         all_reviews = findViewById(R.id.all_reviews);
         img_add_calaneder = findViewById(R.id.img_add_calaneder);
         img_add_fav = findViewById(R.id.img_add_fav);
+        imageSlider=findViewById(R.id.image_slider);
+
+        FirebaseDatabase.getInstance().getReference("Images_Gallery").child(obj.getPush_key()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+               if(snapshot.exists())
+               {
+                   for(DataSnapshot sin:snapshot.getChildren())
+                   {
+                       String image=sin.getValue(String.class);
+                       imagesList.add(new SlideModel(image, ScaleTypes.FIT));
+                   }
+
+                   imageSlider.setImageList(imagesList);
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
         findViewById(R.id.back3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +118,7 @@ public class View_Place_detail extends AppCompatActivity {
             }
         });
 
-        Picasso.get().load(obj.getImages()).into(place_image);
+
         placename.setText(obj.getPlace_name());
         placedesc.setText(obj.getDescription());
         SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
