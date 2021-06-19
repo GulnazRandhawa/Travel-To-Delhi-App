@@ -27,7 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.planner_details;
@@ -126,6 +129,12 @@ public class view_planned_destinations extends Fragment {
             LinearLayout button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
             planner_details planner_obj = temp_planner_arraylist.get(position);
             places_details places_obj = arrayList.get(position);
+            TextView rating=holder.itemView.findViewById(R.id.rating1);
+            rating.setText(arrayList.get(position).getRating());
+
+            TextView date=holder.itemView.findViewById(R.id.date);
+            date.setText(temp_planner_arraylist.get(position).getDate_vist()+"   "+temp_planner_arraylist.get(position).getFrom());
+//
 
 // setting values in recycler from Places_details only
             Picasso.get().load(places_obj.getImages()).into(imv101);

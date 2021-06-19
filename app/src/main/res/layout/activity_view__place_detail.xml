@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".View_Place_detail">
+    android:layout_height="match_parent">
+<ScrollView  android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".View_Place_detail"
+    android:layout_above="@+id/nav_view">
 
 
     <LinearLayout
@@ -20,6 +26,7 @@
             >
 
             <ImageView
+                android:id="@+id/back3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_back"
@@ -30,6 +37,7 @@
                 />
 
             <ImageView
+                android:id="@+id/logout8"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_on_off_button"
@@ -56,12 +64,22 @@
 
 
 
-                <ImageView
-                    android:id="@+id/place_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher_background" />
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                app:iss_auto_cycle="true"
+                app:iss_period="3000"
+
+                app:iss_delay="0"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/place_image"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:scaleType="fitXY"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:src="@drawable/ic_launcher_background" />-->
 
 
                 <ImageView
@@ -138,6 +156,7 @@
 
 
         <LinearLayout
+            android:id="@+id/addNewReview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -166,94 +185,15 @@
 
         </LinearLayout>
 
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ratingsRv"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-          >
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-
-                android:src="@drawable/ellipse4" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/lastreview_name"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="John"
-                    android:fontFamily="@font/opensans_regular"
-                    android:textColor="@android:color/black"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:src="@drawable/star_vector"
-
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"/>
-                    <ImageView
-                        android:layout_marginLeft="1dp"
-                        android:src="@drawable/star_vector"
-
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"/>
-                    <ImageView
-                        android:layout_marginLeft="1dp"
-                        android:src="@drawable/star_vector"
-
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"/>
-                    <ImageView
-                        android:layout_marginLeft="1dp"
-                        android:src="@drawable/star_vector"
-
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"/>
-                    <ImageView
-                        android:layout_marginLeft="1dp"
-                        android:src="@drawable/star_vector"
-
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"/>
+            android:layout_height="wrap_content"/>
 
 
-
-
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/lastreview_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_regular"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/black"
-                    android:text="Qutb Minar is one of the tallest individual towers in world. It was so mesmerizing experience to here.Place is so weel maintained." />
-
-
-
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
         <TextView
             android:id="@+id/all_reviews"
             android:layout_width="wrap_content"
@@ -285,6 +225,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
             />
 
 
@@ -293,3 +234,18 @@
 
 
 </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        app:itemBackground="@color/app_bg_color"
+        android:layout_marginEnd="0dp"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/color"
+        app:itemTextColor="@color/color"
+        app:labelVisibilityMode="labeled"
+        />
+</RelativeLayout>

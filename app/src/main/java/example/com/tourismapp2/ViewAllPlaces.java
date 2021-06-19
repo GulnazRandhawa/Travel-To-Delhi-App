@@ -1,6 +1,8 @@
 package example.com.tourismapp2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +40,7 @@ public class ViewAllPlaces extends Fragment {
     ArrayList<places_details> al;
 MyRecyclerAdapter myad;
 DatabaseReference mainref;
+EditText searchEt;
     public ViewAllPlaces() {
         // Required empty public constructor
     }
@@ -47,6 +53,57 @@ DatabaseReference mainref;
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().findViewById(R.id.logout5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+                editor.clear();
+                editor.apply();
+                getActivity().finish();
+                Intent intent=new Intent(getActivity(),Login_Signup.class);
+                startActivity(intent);
+
+
+
+            }
+        });
+        searchEt=getActivity().findViewById(R.id.searchEt);
+        searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+
+            }
+        });
+    }
+
+    void filter(String text){
+        ArrayList<places_details> temp = new ArrayList();
+        for(places_details d: al){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(d.getPlace_name().toLowerCase().contains(text.toLowerCase())){
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        myad.updateList(temp);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -55,6 +112,7 @@ DatabaseReference mainref;
         al=new ArrayList<places_details>();
 
         rcv_managecategory_showcategory=v.findViewById(R.id.view_all_places);
+
 
         myad=new MyRecyclerAdapter();
 
@@ -74,6 +132,7 @@ DatabaseReference mainref;
                         places_details obj = sin.getValue(places_details.class);
                         al.add(obj);
                     }
+                    myad.setArrayList(al);
                     myad.notifyDataSetChanged();
                 }
             }
@@ -92,6 +151,8 @@ DatabaseReference mainref;
         class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>
     {
 
+        ArrayList<places_details> arrayList=new ArrayList<>();
+
         // Define ur own View Holder (Refers to Single Row)
         class MyViewHolder extends RecyclerView.ViewHolder
         {
@@ -108,6 +169,9 @@ DatabaseReference mainref;
         }
 
 
+
+
+
         // Inflate ur Single Row / CardView from XML here
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -119,6 +183,15 @@ DatabaseReference mainref;
             return new MyViewHolder(viewthatcontainscardview);
         }
 
+        public void setArrayList(ArrayList<places_details> arrayList) {
+            this.arrayList = arrayList;
+        }
+
+        public void updateList(ArrayList<places_details> places_details)
+        {
+            arrayList=places_details;
+            notifyDataSetChanged();
+        }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, final int position) {
@@ -128,11 +201,14 @@ DatabaseReference mainref;
             TextView tv_place_name,tv_catdesc;
             imv101=(ImageView)(localcardview.findViewById(R.id.imvcardview_catphoto));
             tv_place_name=(TextView)(holder.itemView.findViewById(R.id.tvcardview_catname));
+            TextView tvcardview_cat=holder.itemView.findViewById(R.id.tvcardview_cat);
+
 
 //
-            places_details places_details_obj=al.get(position);
+            places_details places_details_obj=arrayList.get(position);
 
             tv_place_name.setText(places_details_obj.getPlace_name());
+            tvcardview_cat.setText(places_details_obj.getRating());
 
             Picasso.get().load(places_details_obj.getImages()).resize(500,500).centerInside().into(imv101);
             localcardview.setOnClickListener(new View.OnClickListener() {
@@ -141,12 +217,14 @@ DatabaseReference mainref;
                     Intent in = new Intent(getContext(),View_Place_detail.class);
                     in.putExtra("obj",places_details_obj);
                     startActivity(in);
+                    getActivity().finish();
                 }
             });
         }
+
         @Override
         public int getItemCount() {
-            return al.size();
+            return arrayList.size();
         }
     }
 }

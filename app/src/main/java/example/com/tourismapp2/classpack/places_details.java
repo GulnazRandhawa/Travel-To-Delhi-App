@@ -4,17 +4,46 @@ import java.io.Serializable;
 
 public class places_details implements Serializable {
     String place_name,images,description,push_key;
-    double rating = 4.6;
-
+    String rating ;
+    String rating_date;
+    String date_vist;
+    String from;
     public places_details() {
     }
 
-    public places_details(String place_name, String images, String description, String push_key, double rating) {
+    public String getRating_date() {
+        return rating_date;
+    }
+
+    public void setRating_date(String rating_date) {
+        this.rating_date = rating_date;
+    }
+
+    public String  getDate_time() {
+        return date_vist;
+    }
+
+    public void setDate_time(String date_time) {
+        this.date_vist = date_time;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public places_details(String place_name, String images, String description, String push_key, String rating, String rating_date, String date_vist, String from) {
         this.place_name = place_name;
         this.images = images;
         this.description = description;
         this.push_key = push_key;
         this.rating = rating;
+        this.rating_date=rating_date;
+        this.date_vist=date_vist;
+        this.from=from;
     }
 
     public String getPlace_name() {
@@ -49,11 +78,11 @@ public class places_details implements Serializable {
         this.push_key = push_key;
     }
 
-    public double getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 }
