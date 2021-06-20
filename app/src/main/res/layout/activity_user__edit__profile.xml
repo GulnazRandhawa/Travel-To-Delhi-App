@@ -185,7 +185,7 @@
                 android:fontFamily="@font/opensans_regular"
 
                 android:background="@drawable/mybutton"
-                android:text="Signup" />
+                android:text="Save" />
             <Button
                 android:layout_weight="1"
                 android:id="@+id/button_cancel"

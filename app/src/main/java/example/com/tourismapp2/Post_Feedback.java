@@ -55,7 +55,7 @@ public class Post_Feedback extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
-
+// star rating code in "Settings"
             public void onRatingChanged(RatingBar ratingBar, float rating,
 
                                         boolean fromUser) {
@@ -96,6 +96,7 @@ public class Post_Feedback extends AppCompatActivity {
             }
 
         });
+        //Setting or saving the feedback in firebase
         btnrate = findViewById(R.id.btnrate);
         btnrate.setOnClickListener(new View.OnClickListener() {
             @Override

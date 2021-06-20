@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import example.com.tourismapp2.classpack.user_details;
 
 public class User_Edit_Profile extends AppCompatActivity {
-    Button button_signup,button_cancel;
+    Button button_save,button_cancel;
     EditText et_firstname,et_lastname,et_dob,et_gender,et_email,et_password;
     DatabaseReference maianref;
 
@@ -35,7 +35,7 @@ public class User_Edit_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user__edit__profile);
 
-        button_signup = findViewById(R.id.button_signup);
+        button_save = findViewById(R.id.button_signup);
         et_firstname = findViewById(R.id.et_firstname);
         et_lastname = findViewById(R.id.et_lastname);
         et_dob = findViewById(R.id.et_dob);
@@ -55,6 +55,7 @@ public class User_Edit_Profile extends AppCompatActivity {
         maianref = firebaseDatabase.getReference("Users");
         maianref.orderByChild("email").equalTo(saved_email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+            // pre-filled details in settings
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for (DataSnapshot sin : snapshot.getChildren()){
@@ -76,7 +77,7 @@ public class User_Edit_Profile extends AppCompatActivity {
             }
         });
 
-        button_signup.setOnClickListener(new View.OnClickListener() {
+        button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String firstname  = et_firstname.getText().toString();
@@ -87,14 +88,14 @@ public class User_Edit_Profile extends AppCompatActivity {
                 String password  = et_password.getText().toString();
 
                 if(firstname.equals("") || lastname.equals("") || dob.equals("") || gender.equals("") || email.equals("") || password.equals("")){
-                    Toast.makeText(User_Edit_Profile.this, "All fieldsa are required.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User_Edit_Profile.this, "All fields are required.", Toast.LENGTH_SHORT).show();
                 }else {
 
 
                     // firebase submit
                     user_details obj = new user_details(firstname,lastname,dob,gender,email,password);
                     maianref.child(firstname).setValue(obj);
-                    Toast.makeText(User_Edit_Profile.this, "Signup Sccessfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User_Edit_Profile.this, "Saved Sccessfully.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
@@ -117,10 +118,10 @@ public class User_Edit_Profile extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
                             for (DataSnapshot sin : snapshot.getChildren()){
-                                user_details obj = sin.getValue(user_details.class);
-                             maianref.child(obj.getFirstname()).removeValue();
+                                user_details obj = sin.getValue(user_details.class); // retreive user objects from firebase
+                             maianref.child(obj.getFirstname()).removeValue(); // remove accounts from firebase
                             }
-                            //
+                            // removing user account from local memory after removing from firebase.
                             SharedPreferences sharedPreference=getSharedPreferences("mypref", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreference.edit();
                             editor.clear();

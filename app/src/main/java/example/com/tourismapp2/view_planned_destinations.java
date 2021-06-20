@@ -202,7 +202,7 @@ public class view_planned_destinations extends Fragment {
                                 }
 
                                 if(flag){
-                                    Toast.makeText(getContext().getApplicationContext(), "This place is already exists into Fav List", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext().getApplicationContext(), "Already Saved for Later!", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
 
@@ -210,7 +210,7 @@ public class view_planned_destinations extends Fragment {
                                     user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,places_obj.getPush_key()); // creating new object of this class to push to firebase.
                                     fav_mainref.child(key).setValue(fav_obj);
 
-                                    Toast.makeText(getContext().getApplicationContext(), "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext().getApplicationContext(), "Saved for Later!", Toast.LENGTH_SHORT).show();
 
                                 }
 
@@ -220,7 +220,7 @@ public class view_planned_destinations extends Fragment {
                                 user_added_fav_places_details fav_obj = new user_added_fav_places_details(key,email,places_obj.getPush_key());
                                 fav_mainref.child(key).setValue(fav_obj);
 
-                                Toast.makeText(getContext().getApplicationContext(), "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext().getApplicationContext(), "Saved for Later!", Toast.LENGTH_SHORT).show();
 
                             }
                         }

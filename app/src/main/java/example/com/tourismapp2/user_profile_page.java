@@ -90,7 +90,7 @@ TextView tv_setting,tv_send_feedback,tv_saved_places,tv_firstname,tv_email;
             public void onClick(View view) {
 
         Intent backIntent=new Intent(getActivity(),HomeScreen.class);
-        backIntent.putExtra("VALUE",3);
+        backIntent.putExtra("VALUE",3); // To open a fragment in footer, it first has to be redirected to Home screen.
         getActivity().finish();
         startActivity(backIntent);
             }
