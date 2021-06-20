@@ -1,5 +1,6 @@
 package example.com.tourismapp2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -13,8 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import example.com.tourismapp2.classpack.user_details;
 
@@ -24,6 +28,8 @@ public class User_Edit_Profile extends AppCompatActivity {
     DatabaseReference maianref;
 
     TextView button_delete;
+    String saved_email = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +45,36 @@ public class User_Edit_Profile extends AppCompatActivity {
         button_delete = findViewById(R.id.button_delete);
         button_cancel = findViewById(R.id.button_cancel);
 
+        //
+        SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
+         saved_email = sharedPreference.getString("email","");
+
+
         FirebaseApp.initializeApp(this);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         maianref = firebaseDatabase.getReference("Users");
+        maianref.orderByChild("email").equalTo(saved_email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for (DataSnapshot sin : snapshot.getChildren()){
+                        user_details obj = sin.getValue(user_details.class);
+                        // set values
+                        et_firstname.setText(obj.getFirstname());
+                        et_lastname.setText(obj.getLastname());
+                        et_email.setText(obj.getEmail());
+                        et_dob.setText(obj.getDob());
+                        et_gender.setText(obj.getGender());
+                        et_password.setText(obj.getPassword());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +89,8 @@ public class User_Edit_Profile extends AppCompatActivity {
                 if(firstname.equals("") || lastname.equals("") || dob.equals("") || gender.equals("") || email.equals("") || password.equals("")){
                     Toast.makeText(User_Edit_Profile.this, "All fieldsa are required.", Toast.LENGTH_SHORT).show();
                 }else {
+
+
                     // firebase submit
                     user_details obj = new user_details(firstname,lastname,dob,gender,email,password);
                     maianref.child(firstname).setValue(obj);
@@ -77,13 +112,32 @@ public class User_Edit_Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // delete userAccount
-                SharedPreferences sharedPreference=getSharedPreferences("mypref", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreference.edit();
-                editor.clear();
-                editor.apply();
-                finish();
-                Intent intent=new Intent(getApplicationContext(),Login_Signup.class);
-                startActivity(intent);
+                maianref.orderByChild("email").equalTo(saved_email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            for (DataSnapshot sin : snapshot.getChildren()){
+                                user_details obj = sin.getValue(user_details.class);
+                             maianref.child(obj.getFirstname()).removeValue();
+                            }
+                            //
+                            SharedPreferences sharedPreference=getSharedPreferences("mypref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreference.edit();
+                            editor.clear();
+                            editor.apply();
+                            finish();
+                            Intent intent=new Intent(getApplicationContext(),Login_Signup.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
             }
         });
 

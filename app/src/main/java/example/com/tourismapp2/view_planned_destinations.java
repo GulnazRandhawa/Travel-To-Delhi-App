@@ -48,6 +48,7 @@ public class view_planned_destinations extends Fragment {
     DatabaseReference planner_ref,popular_destinaation_ref;
     DatabaseReference fav_mainref;
     boolean flag = false;
+    LinearLayout addNewLL;
 
 
     public view_planned_destinations() {
@@ -73,6 +74,7 @@ public class view_planned_destinations extends Fragment {
     public void onStart() {
         super.onStart();
         recyclerView=getActivity().findViewById(R.id.cardRv);
+        addNewLL=getActivity().findViewById(R.id.addNewLL);
         adapter5=new MyRecyclerViewAdapter5();
         recyclerView.setAdapter(adapter5);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -129,6 +131,16 @@ public class view_planned_destinations extends Fragment {
             }
         });
 
+        addNewLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backIntent=new Intent(getActivity(),HomeScreen.class);
+                backIntent.putExtra("VALUE",0);
+                getActivity().finish();
+                startActivity(backIntent);
+
+            }
+        });
 
     }
     public class MyRecyclerViewAdapter5 extends RecyclerView.Adapter<MyRecyclerViewAdapter5.ViewHolder1> {

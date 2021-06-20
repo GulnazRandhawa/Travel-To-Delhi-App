@@ -15,7 +15,7 @@
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/fav_vector"
-        android:title="Fav"
+        android:title="Saved For Later"
         />
     <item
         android:id="@+id/navigation_profile"

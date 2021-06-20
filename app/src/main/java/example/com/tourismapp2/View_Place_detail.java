@@ -40,7 +40,7 @@ import example.com.tourismapp2.classpack.user_added_fav_places_details;
 
 public class View_Place_detail extends AppCompatActivity {
 
-    TextView placename;
+    TextView placename,rating2;
     TextView placedesc,all_reviews;
 
     ImageView img_add_calaneder,img_add_fav;
@@ -53,13 +53,13 @@ public class View_Place_detail extends AppCompatActivity {
     ArrayList<SlideModel>imagesList=new ArrayList<>();
     ArrayList<rating_details>ratingArrayList=new ArrayList<>();
    ArrayList<HotelDetail>hotelList=new ArrayList<>();
-
+    places_details obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__place_detail);
         Intent in = getIntent();
-        places_details obj = (places_details) in.getSerializableExtra("obj");
+      obj   = (places_details) in.getSerializableExtra("obj");
 
         //
         popularDesRv = findViewById(R.id.popularDesRv);
@@ -74,6 +74,11 @@ public class View_Place_detail extends AppCompatActivity {
         placename = findViewById(R.id.placename);
         placedesc = findViewById(R.id.placedesc);
         all_reviews = findViewById(R.id.all_reviews);
+        rating2 = findViewById(R.id.rating2);
+
+        //
+        rating2.setText(obj.getRating());
+        //
         img_add_calaneder = findViewById(R.id.img_add_calaneder);
         img_add_fav = findViewById(R.id.img_add_fav);
         imageSlider=findViewById(R.id.image_slider);
@@ -86,16 +91,18 @@ public class View_Place_detail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 ratingArrayList.clear();
-                for(DataSnapshot sin :snapshot.getChildren())
-                {
-                    rating_details rating_details=sin.getValue(example.com.tourismapp2.classpack.rating_details.class);
-                    ratingArrayList.add(rating_details);
+               if(snapshot.exists()){
+                   for(DataSnapshot sin :snapshot.getChildren())
+                   {
+                       rating_details rating_details=sin.getValue(example.com.tourismapp2.classpack.rating_details.class);
+                       ratingArrayList.add(rating_details);
 
-                }
+                   }
 
-                ArrayList<rating_details>details=new ArrayList<>();
-                details.add(ratingArrayList.get(0));
-                adapter1.setRatingList(details);
+                   ArrayList<rating_details>details=new ArrayList<>();
+                   details.add(ratingArrayList.get(0));
+                   adapter1.setRatingList(details);
+               }
                 adapter1.notifyDataSetChanged();
             }
 
@@ -104,7 +111,7 @@ public class View_Place_detail extends AppCompatActivity {
 
             }
         });
-        FirebaseDatabase.getInstance().getReference("hotels").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("hotels").child(obj.getPush_key()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 hotelList.clear();
@@ -276,7 +283,7 @@ public class View_Place_detail extends AppCompatActivity {
                             }
 
                             if(flag){
-                                Toast.makeText(View_Place_detail.this, "This place is already exists into Fav List", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(View_Place_detail.this, "Already Exists !!", Toast.LENGTH_SHORT).show();
                             }
                             else {
 
@@ -286,7 +293,7 @@ public class View_Place_detail extends AppCompatActivity {
                                 backIntent.putExtra("VALUE",3);
                                 finish();
                                 startActivity(backIntent);
-                                Toast.makeText(View_Place_detail.this, "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(View_Place_detail.this, "Place Saved !!", Toast.LENGTH_SHORT).show();
 
                             }
 
@@ -298,7 +305,7 @@ public class View_Place_detail extends AppCompatActivity {
                             backIntent.putExtra("VALUE",3);
                             finish();
                             startActivity(backIntent);
-                            Toast.makeText(View_Place_detail.this, "Place Added TO fav List.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(View_Place_detail.this, "Place Saved !!", Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -414,6 +421,12 @@ public class View_Place_detail extends AppCompatActivity {
 
 
             lastReview.setText(ratingList.get(position).getComment());
+          ImageView imv_user_profile  = holder.itemView.findViewById(R.id.imv_user_profile);
+          TextView lastreview_name  = holder.itemView.findViewById(R.id.lastreview_name);
+
+
+          Picasso.get().load(ratingList.get(position).getPic()).into(imv_user_profile);
+          lastreview_name.setText(ratingList.get(position).getName());
 
 
 

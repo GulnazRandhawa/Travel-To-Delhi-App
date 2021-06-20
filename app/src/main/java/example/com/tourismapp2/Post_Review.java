@@ -105,7 +105,9 @@ d1 = ft.format(dNow);
             public void onClick(View view) {
                 comment=edcomment.getText().toString();
                 String key = mainref.push().getKey();
-                rating_details obj = new rating_details(comment,email,places_key,key,d1, dNow.getTime(),ratedValue);
+                String d_pic ="https://firebasestorage.googleapis.com/v0/b/ui-design-india.appspot.com/o/User_images%2FRam.png?alt=media&token=b95d7401-220b-492f-8241-359498376228";
+
+                rating_details obj = new rating_details(comment,email,places_key,key,d1, "John",d_pic,dNow.getTime(),ratedValue);
                 mainref.child(places_key).child(key).setValue(obj);
                 Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
                 finish();

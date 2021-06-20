@@ -217,7 +217,7 @@ EditText searchEt;
                     Intent in = new Intent(getContext(),View_Place_detail.class);
                     in.putExtra("obj",places_details_obj);
                     startActivity(in);
-                    getActivity().finish();
+
                 }
             });
         }
