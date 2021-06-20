@@ -67,6 +67,8 @@ TextView tv_setting,tv_send_feedback;
         tv_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent in = new Intent(getActivity().getApplicationContext(),User_Edit_Profile.class);
+                startActivity(in);
 
             }
         });
