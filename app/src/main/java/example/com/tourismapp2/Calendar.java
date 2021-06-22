@@ -149,6 +149,12 @@ public class Calendar extends AppCompatActivity {
                 planer_ref.child(key).setValue(obj); //Object saved
                 Toast.makeText(Calendar.this, "Planned For Visiting", Toast.LENGTH_SHORT).show();
 
+                SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+                editor.putBoolean("TASK2",true);
+                editor.commit();
+
+
                try {
                    if(ask_to_remove.equals("yes")){
                        user_add_places_ref.child(id).removeValue();
@@ -156,6 +162,7 @@ public class Calendar extends AppCompatActivity {
                }catch (Exception e){
                    Log.d("a",e.toString());
                }
+
 
                 finish();
             }

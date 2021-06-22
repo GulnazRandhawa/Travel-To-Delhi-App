@@ -109,6 +109,7 @@ public class view_planned_destinations extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 temp_planner_arraylist.clear();
+                arrayList.clear();
                 if(snapshot.exists()){
                     for (DataSnapshot sin : snapshot.getChildren()){
                         planner_details obj = sin.getValue(planner_details.class);
@@ -222,7 +223,7 @@ public class view_planned_destinations extends Fragment {
                                 fav_mainref.child(key).setValue(fav_obj);
 
                                 Toast.makeText(getContext().getApplicationContext(), "Saved for Later!", Toast.LENGTH_SHORT).show();
-
+                                planner_ref.child(planner_obj.getId()).removeValue();
                             }
                         }
 

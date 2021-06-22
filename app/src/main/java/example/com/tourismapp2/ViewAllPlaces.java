@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -29,9 +30,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import example.com.tourismapp2.classpack.Save_Login_Details;
 import example.com.tourismapp2.classpack.places_details;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class ViewAllPlaces extends Fragment {
@@ -59,12 +65,48 @@ EditText searchEt;
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
                 SharedPreferences.Editor editor = sharedPreference.edit();
-                editor.clear();
-                editor.apply();
-                getActivity().finish();
-                Intent intent=new Intent(getActivity(),Login_Signup.class);
-                startActivity(intent);
+                long beforeTime=sharedPreference.getLong("time",0);
+                long currenttime=new Date().getTime();
+                long timeDiff=currenttime-beforeTime;
+                SimpleDateFormat format=new SimpleDateFormat("hh-mm:ss");
+                String value= format.format(timeDiff);
+                System.out.println(value);
+
+                boolean task1,task2;
+                task1=sharedPreference.getBoolean("TASK1",false);
+                task2=sharedPreference.getBoolean("TASK2",false);
+                boolean flag=false;
+                if(task1)
+                {
+                    if(!task2)
+                    {
+                        Toast.makeText(getActivity(), "No Place added in PLanner", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else
+                    {
+                        flag=true;
+                    }
+
+                }
+                else {
+                    Toast.makeText(getActivity(), "No Place addded to favourites", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+                if(flag) {
+                    editor.clear();
+                    editor.apply();
+                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), Login_Signup.class);
+                    startActivity(intent);
+                    //save to firebase
+                    save_time_to_firebase();
+                }
 
 
 
@@ -226,5 +268,20 @@ EditText searchEt;
         public int getItemCount() {
             return arrayList.size();
         }
+    }
+
+    //
+    public void save_time_to_firebase(){
+        //email,time_from, time_to,current_date,id
+        SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
+        String email = sharedPreference.getString("email","");
+
+        email = email.replace(".","~*~"); // test
+        DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
+        String id = loginref.push().getKey();
+        Save_Login_Details obj = new Save_Login_Details(email,"","","",id);
+
+        loginref.child(email).child(id).setValue(obj);
+
     }
 }

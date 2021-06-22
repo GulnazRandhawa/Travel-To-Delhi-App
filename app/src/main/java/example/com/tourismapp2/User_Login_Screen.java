@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 import example.com.tourismapp2.classpack.user_details;
 
 public class User_Login_Screen extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class User_Login_Screen extends AppCompatActivity {
     Button button_login;
     DatabaseReference mainref;
     String firstname ="";
+    String lastname ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,7 @@ public class User_Login_Screen extends AppCompatActivity {
                                 for (DataSnapshot sin : snapshot.getChildren()){
                                     user_details obj = sin.getValue(user_details.class);
 firstname = obj.getFirstname();
+lastname = obj.getLastname();
                                     if (obj.getEmail().equals(email)&&obj.getPassword().equals(pass)){
 
                                         flag=1;
@@ -74,7 +78,11 @@ firstname = obj.getFirstname();
                                     editor.putString("email",email);
                                     editor.putString("password",pass);
                                     editor.putString("firstname",firstname);
+                                    editor.putString("lastname",lastname);
 
+                                    Date date=new Date();
+                                    long time=  date.getTime();
+                                    editor.putLong("time",time);
                                     editor.commit();
                                     Intent in = new Intent(getApplicationContext(), HomeScreen.class);
 
