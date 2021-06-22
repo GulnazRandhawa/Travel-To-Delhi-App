@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class user_profile_page extends Fragment {
@@ -48,17 +52,57 @@ public class user_profile_page extends Fragment {
         getActivity().findViewById(R.id.logout7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
                 SharedPreferences.Editor editor = sharedPreference.edit();
-                editor.clear();
-                editor.apply();
-                getActivity().finish();
-                Intent intent=new Intent(getActivity(),Login_Signup.class);
-                startActivity(intent);
+                long beforeTime=sharedPreference.getLong("time",0);
+                long currenttime=new Date().getTime();
+                long timeDiff=currenttime-beforeTime;
+                SimpleDateFormat format=new SimpleDateFormat("hh-mm");
+                String value= format.format(timeDiff);
+                System.out.println(value);
+
+                boolean task1,task2;
+                task1=sharedPreference.getBoolean("TASK1",false);
+                task2=sharedPreference.getBoolean("TASK2",false);
+                boolean flag=false;
+                if(task1)
+                {
+                    if(!task2)
+                    {
+                        Toast.makeText(getActivity(), "No Place added in PLanner", Toast.LENGTH_SHORT).show();
 
 
+                    }
+                    else
+                    {
+                        flag=true;
+                    }
+
+                }
+                else {
+                    Toast.makeText(getActivity(), "No Place addded to favourites", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+                if(flag) {
+                    editor.clear();
+                    editor.apply();
+                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), Login_Signup.class);
+                    startActivity(intent);
+                }
 
             }
+
+
+
+
+
         });
     }
+
+
 }

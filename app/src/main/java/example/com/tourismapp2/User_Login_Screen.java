@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 import example.com.tourismapp2.classpack.user_details;
 
 public class User_Login_Screen extends AppCompatActivity {
@@ -75,6 +77,9 @@ firstname = obj.getFirstname();
                                     editor.putString("password",pass);
                                     editor.putString("firstname",firstname);
 
+                                    Date date=new Date();
+                                    long time=  date.getTime();
+                                    editor.putLong("time",time);
                                     editor.commit();
                                     Intent in = new Intent(getApplicationContext(), HomeScreen.class);
 
