@@ -212,6 +212,7 @@ public class view_planned_destinations extends Fragment {
 
                                     Toast.makeText(getContext().getApplicationContext(), "Saved for Later!", Toast.LENGTH_SHORT).show();
 
+                                    planner_ref.child(planner_obj.getId()).removeValue();
                                 }
 
                             }

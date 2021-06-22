@@ -124,13 +124,30 @@ public class Calendar extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(date.equals("")){
+
+                    Toast.makeText(Calendar.this, "Select Date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(current_time_from.equals("")){
+
+                    Toast.makeText(Calendar.this, "Select Time From", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(current_time_to.equals("")){
+
+                    Toast.makeText(Calendar.this, "Select Time TO", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
                 // add to firebase
                 String key =  planer_ref.push().getKey(); // retrieving place's ID from firebase
                 // creating an object of places added to planner
                 planner_details obj = new planner_details(key,email,place_id,date,current_time_from,current_time_to);
 // pointing to the "KEY" value of place added to planner in Firebase tree
                 planer_ref.child(key).setValue(obj); //Object saved
-                Toast.makeText(Calendar.this, "Saved For Visiting", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Calendar.this, "Planned For Visiting", Toast.LENGTH_SHORT).show();
 
                try {
                    if(ask_to_remove.equals("yes")){

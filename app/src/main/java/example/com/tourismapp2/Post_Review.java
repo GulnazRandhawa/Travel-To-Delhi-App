@@ -28,7 +28,7 @@ public class Post_Review extends AppCompatActivity {
     String email,places_key;
     private int ratedValue;
     EditText edcomment;
-    String comment;
+    String comment,firstname;
     DatabaseReference mainref;
     Date dNow;
     String d1="";
@@ -49,6 +49,7 @@ d1 = ft.format(dNow);
 
         SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
         email = sharedPreference.getString("email","");
+        firstname = sharedPreference.getString("firstname","");
 
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         tvRateCount = (TextView) findViewById(R.id.tvRateCount);
@@ -107,7 +108,7 @@ d1 = ft.format(dNow);
                 String key = mainref.push().getKey();
                 String d_pic ="https://firebasestorage.googleapis.com/v0/b/ui-design-india.appspot.com/o/User_images%2FRam.png?alt=media&token=b95d7401-220b-492f-8241-359498376228";
 
-                rating_details obj = new rating_details(comment,email,places_key,key,d1, "John",d_pic,dNow.getTime(),ratedValue);
+                rating_details obj = new rating_details(comment,email,places_key,key,d1, firstname,d_pic,dNow.getTime(),ratedValue);
                 mainref.child(places_key).child(key).setValue(obj);
                 Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
                 finish();
