@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -25,8 +26,9 @@ public class Calendar extends AppCompatActivity {
     CalendarView calendarView;
     TimePickerDialog picker;
     String current_date = "", current_time_to ="", current_time_from = "",email = "",place_id="";
-    DatabaseReference planer_ref;
+    DatabaseReference planer_ref,user_add_places_ref;
     String date = "";
+    String ask_to_remove = "no",id ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +43,20 @@ public class Calendar extends AppCompatActivity {
         timeTo = findViewById(R.id.timeTo);
         calendarView = findViewById(R.id.calendarView);
 
-        Intent in = getIntent();
-        place_id = in.getStringExtra("place_id");
+        try {
+            Intent in = getIntent();
+            place_id = in.getStringExtra("place_id");
+            ask_to_remove = in.getStringExtra("remove");
+            id = in.getStringExtra("id");
+
+        }catch (Exception e ){
+            ask_to_remove = "no";
+            id = "no";
+            Log.d("EX",e.toString());
+        }
+
         planer_ref = FirebaseDatabase.getInstance().getReference("Planners_Details");
+        user_add_places_ref = FirebaseDatabase.getInstance().getReference("User_Added_Fav_Places");
         //Logic for selecting Calendar date
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 // date is set to the selected one and also shows intent of the same.
@@ -118,10 +131,21 @@ public class Calendar extends AppCompatActivity {
 // pointing to the "KEY" value of place added to planner in Firebase tree
                 planer_ref.child(key).setValue(obj); //Object saved
                 Toast.makeText(Calendar.this, "Saved For Visiting", Toast.LENGTH_SHORT).show();
+
                 SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreference.edit();
                 editor.putBoolean("TASK2",true);
                 editor.commit();
+
+
+               try {
+                   if(ask_to_remove.equals("yes")){
+                       user_add_places_ref.child(id).removeValue();
+                   }
+               }catch (Exception e){
+                   Log.d("a",e.toString());
+               }
+
 
                 finish();
             }

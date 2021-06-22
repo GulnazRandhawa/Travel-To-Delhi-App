@@ -9,9 +9,9 @@
     android:gravity="center"
     tools:context=".Login_Signup">
     <ImageView
-        android:src="@drawable/logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"/>
+        android:src="@drawable/logo1"
+        android:layout_width="350dp"
+        android:layout_height="350dp"/>
 
 
 </LinearLayout>

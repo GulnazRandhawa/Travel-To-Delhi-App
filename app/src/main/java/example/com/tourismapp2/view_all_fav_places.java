@@ -145,12 +145,15 @@ public class view_all_fav_places extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 temp_places_id_array_list.clear();
                 Log.d("Hello-msg",snapshot.toString());
+                Log.d("Hello-msg-count",snapshot.getChildrenCount()+"");
 
                 if(snapshot.exists()){ // adding the User's all fav places into arraylist "temp_places_id_list"
                     for (DataSnapshot sin : snapshot.getChildren()){
                         user_added_fav_places_details obj2 = sin.getValue(user_added_fav_places_details.class);
                         temp_places_id_array_list.add(obj2);
                     }
+                    Log.d("Hello-msg-count",temp_places_id_array_list.size()+"");
+
                     arrayList.clear();
                     fetch_places_details();
                 }
@@ -167,6 +170,7 @@ public class view_all_fav_places extends Fragment {
     }
 
     public void fetch_places_details(){
+        Log.d("Hello-msg-count",temp_places_id_array_list.size()+"");
 
         for (int i = 0 ; i < temp_places_id_array_list.size() ; i++){
             //running the for loop till the length of array list containing user's fav places.
@@ -184,6 +188,8 @@ public class view_all_fav_places extends Fragment {
 //                        Toast.makeText(getActivity(), ""+arrayList.size(), Toast.LENGTH_SHORT).show();
                         myad_view.notifyDataSetChanged();
                     }
+                    Log.d("Hello-msg-count-inside",arrayList.size()+"");
+
                 }
 
                 @Override
@@ -243,7 +249,6 @@ public class view_all_fav_places extends Fragment {
           LinearLayout button_remove_fav=(holder.itemView.findViewById(R.id.button_remove_fav));
 
 //
-            Toast.makeText(getActivity(), ""+arrayList.get(position).getPlace_name(), Toast.LENGTH_SHORT).show();
             places_details places_details_obj=arrayList.get(position);
 
 
@@ -256,6 +261,8 @@ public class view_all_fav_places extends Fragment {
                 public void onClick(View view) {
                     Intent in = new Intent(getContext().getApplicationContext(),Calendar.class);
                     in.putExtra("place_id",places_details_obj.getPush_key()); // Sends that selected place's key to Manage reviews page
+                    in.putExtra("remove","yes");
+                    in.putExtra("id",temp_places_id_array_list.get(position).getFav_places_id()+"");
                     startActivity(in);
                 }
             });
@@ -270,7 +277,8 @@ public class view_all_fav_places extends Fragment {
 
         }
         @Override
-        public int getItemCount() {
+        public int getItemCount()
+        {
             return arrayList.size();
         }
     }

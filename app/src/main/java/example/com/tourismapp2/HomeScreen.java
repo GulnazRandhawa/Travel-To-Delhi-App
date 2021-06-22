@@ -32,7 +32,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-
+//code for directing to Saved places screen when user clicks the option  "saved places" in Settings
         BottomNavigationView navView = findViewById(R.id.nav_view);
         //load View all places
 
@@ -58,7 +58,7 @@ public class HomeScreen extends AppCompatActivity {
         {
             loadFragment(new ViewAllPlaces());
         }
-
+// code for On clicking any option in footer
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
