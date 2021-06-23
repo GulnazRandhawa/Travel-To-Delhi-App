@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import example.com.tourismapp2.classpack.Save_Login_Details;
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.planner_details;
 import example.com.tourismapp2.classpack.user_added_fav_places_details;
@@ -87,16 +88,69 @@ public class view_planned_destinations extends Fragment {
                 getActivity().finish();
             }
         });
+//        getActivity().findViewById(R.id.logout6).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreference.edit();
+//                editor.clear();
+//                editor.apply();
+//                getActivity().finish();
+//                Intent intent=new Intent(getActivity(),Login_Signup.class);
+//                startActivity(intent);
+//
+//
+//
+//            }
+//        });
+
         getActivity().findViewById(R.id.logout6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+
                 SharedPreferences.Editor editor = sharedPreference.edit();
-                editor.clear();
-                editor.apply();
-                getActivity().finish();
-                Intent intent=new Intent(getActivity(),Login_Signup.class);
-                startActivity(intent);
+                long beforeTime=sharedPreference.getLong("time",0);
+                long currenttime=new Date().getTime();
+                long timeDiff=currenttime-beforeTime;
+                SimpleDateFormat format=new SimpleDateFormat("hh-mm:ss");
+                String value= format.format(timeDiff);
+                System.out.println(value);
+
+                boolean task1,task2;
+                task1=sharedPreference.getBoolean("TASK1",false);
+                task2=sharedPreference.getBoolean("TASK2",false);
+                boolean flag=false;
+                if(task1)
+                {
+                    if(!task2)
+                    {
+                        Toast.makeText(getActivity(), "No Place added in PLanner", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else
+                    {
+                        flag=true;
+                    }
+
+                }
+                else {
+                    Toast.makeText(getActivity(), "No Place addded to favourites", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+                if(flag) {
+                    save_time_to_firebase(beforeTime,currenttime);
+                    editor.clear();
+                    editor.apply();
+                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), Login_Signup.class);
+                    startActivity(intent);
+                    //save to firebase
+
+                }
 
 
 
@@ -281,6 +335,30 @@ public class view_planned_destinations extends Fragment {
                 }
             });
         }
+
+    }
+    public void save_time_to_firebase(long before_time,long current_time){
+
+        SimpleDateFormat format=new SimpleDateFormat("hh-mm:ss");
+        String value= format.format(before_time);
+        String value2= format.format(current_time);
+        //
+        Date date_obj = new Date();
+        SimpleDateFormat sdf1  = new SimpleDateFormat("dd-MM-yyyy");
+        String  date_1 = sdf1.format(date_obj);
+
+        //
+
+        SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
+        String email = sharedPreference.getString("email","");
+
+        String  email2 = email.replaceAll("\\.", "~"); // test
+        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
+        DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
+        String id = loginref.push().getKey();
+        Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
+
+        loginref.child(email2).child(id).setValue(obj);
 
     }
 

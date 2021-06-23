@@ -99,13 +99,14 @@ EditText searchEt;
 
 
                 if(flag) {
+                    save_time_to_firebase(beforeTime,currenttime);
                     editor.clear();
                     editor.apply();
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), Login_Signup.class);
                     startActivity(intent);
                     //save to firebase
-                    save_time_to_firebase(beforeTime,currenttime);
+
                 }
 
 
@@ -279,19 +280,20 @@ EditText searchEt;
         //
         Date date_obj = new Date();
         SimpleDateFormat sdf1  = new SimpleDateFormat("dd-MM-yyyy");
-      String  date_1 = sdf1.format(date_obj);
+        String  date_1 = sdf1.format(date_obj);
 
         //
 
         SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
         String email = sharedPreference.getString("email","");
 
-        String  email2 = email.replace(".","~*~"); // test
+        String  email2 = email.replaceAll("\\.", "~"); // test
+        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
         DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
         String id = loginref.push().getKey();
         Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
 
-        loginref.child(email).child(id).setValue(obj);
+        loginref.child(email2).child(id).setValue(obj);
 
     }
 }

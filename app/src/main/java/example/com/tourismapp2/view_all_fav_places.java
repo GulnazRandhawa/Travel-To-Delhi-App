@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import example.com.tourismapp2.classpack.Save_Login_Details;
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.user_added_fav_places_details;
 
@@ -113,6 +114,7 @@ public class view_all_fav_places extends Fragment {
 
 
                 if(flag) {
+                    save_time_to_firebase(beforeTime,currenttime);
                     editor.clear();
                     editor.apply();
                     getActivity().finish();
@@ -283,4 +285,32 @@ public class view_all_fav_places extends Fragment {
             return arrayList.size();
         }
     }
+
+    //
+
+    public void save_time_to_firebase(long before_time,long current_time){
+
+        SimpleDateFormat format=new SimpleDateFormat("hh-mm:ss");
+        String value= format.format(before_time);
+        String value2= format.format(current_time);
+        //
+        Date date_obj = new Date();
+        SimpleDateFormat sdf1  = new SimpleDateFormat("dd-MM-yyyy");
+        String  date_1 = sdf1.format(date_obj);
+
+        //
+
+        SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
+        String email = sharedPreference.getString("email","");
+
+        String  email2 = email.replaceAll("\\.", "~"); // test
+        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
+        DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
+        String id = loginref.push().getKey();
+        Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
+
+        loginref.child(email2).child(id).setValue(obj);
+
+    }
+
 }
