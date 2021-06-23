@@ -105,7 +105,7 @@ EditText searchEt;
                     Intent intent = new Intent(getActivity(), Login_Signup.class);
                     startActivity(intent);
                     //save to firebase
-                    save_time_to_firebase();
+                    save_time_to_firebase(beforeTime,currenttime);
                 }
 
 
@@ -271,15 +271,27 @@ EditText searchEt;
     }
 
     //
-    public void save_time_to_firebase(){
+    public void save_time_to_firebase(long before_time,long current_time){
+
+        SimpleDateFormat format=new SimpleDateFormat("hh-mm:ss");
+        String value= format.format(before_time);
+        String value2= format.format(current_time);
+        //
+        Date date_obj = new Date();
+        SimpleDateFormat sdf1  = new SimpleDateFormat("dd-MM-yyyy");
+      String  date_1 = sdf1.format(date_obj);
+
+        //
+
         //email,time_from, time_to,current_date,id
         SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
         String email = sharedPreference.getString("email","");
 
-        email = email.replace(".","~*~"); // test
+        String  email2 = email.replace(".","~*~"); // test
+        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
         DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
         String id = loginref.push().getKey();
-        Save_Login_Details obj = new Save_Login_Details(email,"","","",id);
+        Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
 
         loginref.child(email).child(id).setValue(obj);
 
