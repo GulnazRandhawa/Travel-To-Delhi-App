@@ -283,12 +283,10 @@ EditText searchEt;
 
         //
 
-        //email,time_from, time_to,current_date,id
         SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref",MODE_PRIVATE);
         String email = sharedPreference.getString("email","");
 
         String  email2 = email.replace(".","~*~"); // test
-        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
         DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
         String id = loginref.push().getKey();
         Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
