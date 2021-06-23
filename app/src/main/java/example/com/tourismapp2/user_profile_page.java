@@ -103,6 +103,7 @@ TextView tv_setting,tv_send_feedback,tv_saved_places,tv_firstname,tv_email;
                     editor.apply();
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), Login_Signup.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
 
