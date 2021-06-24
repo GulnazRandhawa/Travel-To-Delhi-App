@@ -147,7 +147,7 @@ public class Calendar extends AppCompatActivity {
                 planner_details obj = new planner_details(key,email,place_id,date,current_time_from,current_time_to);
 // pointing to the "KEY" value of place added to planner in Firebase tree
                 planer_ref.child(key).setValue(obj); //Object saved
-                Toast.makeText(Calendar.this, "Planned For Visiting", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Calendar.this, "Added to Calendar for visiting", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreference.edit();

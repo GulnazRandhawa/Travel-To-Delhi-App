@@ -290,7 +290,7 @@ public class View_Place_detail extends AppCompatActivity {
                                 finish();
                                 startActivity(backIntent);
 
-                                Toast.makeText(View_Place_detail.this, "Place Saved !!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(View_Place_detail.this, "Saved for Later", Toast.LENGTH_SHORT).show();
                                 SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreference.edit();
                                 editor.putBoolean("TASK1",true);
@@ -309,7 +309,7 @@ public class View_Place_detail extends AppCompatActivity {
                             finish();
                             startActivity(backIntent);
 
-                            Toast.makeText(View_Place_detail.this, "Place Saved !!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(View_Place_detail.this, "Saved for Later", Toast.LENGTH_SHORT).show();
                             SharedPreferences sharedPreference=getSharedPreferences("mypref",MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreference.edit();
                             editor.putBoolean("TASK1",true);

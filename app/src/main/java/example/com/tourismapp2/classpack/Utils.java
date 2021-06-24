@@ -25,7 +25,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Utils {
    static boolean task1,task2;
-    public static final int CHECK=1;
+    public static final int CHECK=2;
     public static void main(String[] args) {
 
     }
@@ -57,6 +57,51 @@ public class Utils {
                             task1 = true;
                             exitLogout(context);
                             break;
+                        }
+
+                        if(i<CHECK)
+                        {
+
+                            task1 = false;
+                            {
+                                DatabaseReference planner_ref = FirebaseDatabase.getInstance().getReference("Planners_Details");
+
+
+                                planner_ref.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        if (snapshot.exists()) {
+                                            int i = 0;
+                                            for (DataSnapshot sin : snapshot.getChildren()) {
+
+                                                ++i;
+                                                if (i >= CHECK) {
+                                                    task2 = true;
+                                                    exitLogout(context);
+                                                    break;
+                                                }
+
+                                            }
+                                            if(i<CHECK)
+                                                exitLogout(context);
+
+
+
+                                        } else {
+                                            exitLogout(context);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                                    }
+
+                                });
+
+                            }
+
                         }
                     }
 
@@ -104,14 +149,6 @@ public class Utils {
             }
 
         });
-
-
-
-
-
-
-
-
     }
 
     public static void exitLogout( Activity context)
@@ -141,9 +178,9 @@ public class Utils {
         else {
             if(!task2)
             {
-                Toast.makeText(context, "No Place addded to favourites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Add atleast 2 saved places", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context, "No Place added in Planner", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Add atleast 2 places in calendar", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -185,7 +222,6 @@ public class Utils {
         String email = sharedPreference.getString("email","");
 
         String  email2 = email.replaceAll("\\.", "~"); // test
-        Toast.makeText(context, ""+email2, Toast.LENGTH_SHORT).show();
         DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
         String id = loginref.push().getKey();
         Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);

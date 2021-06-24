@@ -309,7 +309,6 @@ public class view_planned_destinations extends Fragment {
         String email = sharedPreference.getString("email","");
 
         String  email2 = email.replaceAll("\\.", "~"); // test
-        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
         DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
         String id = loginref.push().getKey();
         Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
