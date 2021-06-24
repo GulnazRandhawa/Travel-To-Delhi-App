@@ -35,9 +35,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import example.com.tourismapp2.classpack.Save_Login_Details;
+import example.com.tourismapp2.classpack.Utils;
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.planner_details;
 import example.com.tourismapp2.classpack.user_added_fav_places_details;
+import okhttp3.internal.Util;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -107,54 +109,7 @@ public class view_planned_destinations extends Fragment {
         getActivity().findViewById(R.id.logout6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreference=getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = sharedPreference.edit();
-                long beforeTime=sharedPreference.getLong("time",0);
-                long currenttime=new Date().getTime();
-                long timeDiff=currenttime-beforeTime;
-                SimpleDateFormat format=new SimpleDateFormat("hh-mm:ss");
-                String value= format.format(timeDiff);
-                System.out.println(value);
-
-                boolean task1,task2;
-                task1=sharedPreference.getBoolean("TASK1",false);
-                task2=sharedPreference.getBoolean("TASK2",false);
-                boolean flag=false;
-                if(task1)
-                {
-                    if(!task2)
-                    {
-                        Toast.makeText(getActivity(), "No Place added in PLanner", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                    else
-                    {
-                        flag=true;
-                    }
-
-                }
-                else {
-                    Toast.makeText(getActivity(), "No Place addded to favourites", Toast.LENGTH_SHORT).show();
-
-                }
-
-
-                if(flag) {
-                    save_time_to_firebase(beforeTime,currenttime);
-                    editor.clear();
-                    editor.apply();
-                    getActivity().finish();
-                    Intent intent = new Intent(getActivity(), Login_Signup.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    //save to firebase
-
-                }
-
-
-
+                new Utils().logOut(getActivity());
             }
         });
         //
@@ -354,7 +309,6 @@ public class view_planned_destinations extends Fragment {
         String email = sharedPreference.getString("email","");
 
         String  email2 = email.replaceAll("\\.", "~"); // test
-        Toast.makeText(getActivity(), ""+email2, Toast.LENGTH_SHORT).show();
         DatabaseReference loginref = FirebaseDatabase.getInstance().getReference("Login_Time_Records");
         String id = loginref.push().getKey();
         Save_Login_Details obj = new Save_Login_Details(email,value,value2,date_1,id);
