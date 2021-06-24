@@ -24,7 +24,7 @@ import example.com.tourismapp2.Login_Signup;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Utils {
-   static boolean task1,task2;
+   static boolean task1=false,task2=false;
     public static final int CHECK=2;
 
     public static void logOut(Activity context) {
@@ -47,13 +47,14 @@ public class Utils {
                         if (i >= CHECK) {
                             task1 = true;
 
-                            break;
                         }
 
 
                     }
 
                 }
+
+
             }
 
             @Override
@@ -81,13 +82,15 @@ public class Utils {
                             if (i >= CHECK) {
                                 task2 = true;
 
-                                break;
+
                             }
 
                         }
 
 
                     }
+
+                    exitLogout(context);
 
 
                 }
@@ -98,6 +101,8 @@ public class Utils {
                 }
 
             });
+
+
 
 
     }
@@ -127,7 +132,7 @@ public class Utils {
             if(!task2)
             {
 
-                Toast.makeText(context, "Add atleast nnnnn2 places in calendar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Add atleast 2 places in calendar", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -140,7 +145,7 @@ public class Utils {
         }
         else
         {
-            Toast.makeText(context, "Add atleast 2 nnnnsaved places", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Add atleast 2 saved places", Toast.LENGTH_SHORT).show();
 
         }
 
