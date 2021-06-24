@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import example.com.tourismapp2.classpack.HotelDetail;
+import example.com.tourismapp2.classpack.Utils;
 import example.com.tourismapp2.classpack.places_details;
 import example.com.tourismapp2.classpack.rating_details;
 import example.com.tourismapp2.classpack.user_added_fav_places_details;
@@ -56,6 +57,8 @@ public class View_Place_detail extends AppCompatActivity {
     ArrayList<rating_details>ratingArrayList=new ArrayList<>();
    ArrayList<HotelDetail>hotelList=new ArrayList<>();
     places_details obj;
+    boolean task1,task2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,49 +183,7 @@ public class View_Place_detail extends AppCompatActivity {
        findViewById(R.id.logout8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreference=getSharedPreferences("mypref", Context.MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = sharedPreference.edit();
-                long beforeTime=sharedPreference.getLong("time",0);
-                long currenttime=new Date().getTime();
-                long timeDiff=currenttime-beforeTime;
-                SimpleDateFormat format=new SimpleDateFormat("hh-mm");
-                String value= format.format(timeDiff);
-                System.out.println(value);
-
-                boolean task1,task2;
-                task1=sharedPreference.getBoolean("TASK1",false);
-                task2=sharedPreference.getBoolean("TASK2",false);
-                boolean flag=false;
-                if(task1)
-                {
-                    if(!task2)
-                    {
-                        Toast.makeText(View_Place_detail.this, "No Place added in PLanner", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                    else
-                    {
-                        flag=true;
-                    }
-
-                }
-                else {
-                    Toast.makeText(View_Place_detail.this, "No Place addded to favourites", Toast.LENGTH_SHORT).show();
-
-                }
-
-
-                if(flag) {
-                    editor.clear();
-                    editor.apply();
-                    finish();
-                    Intent intent = new Intent(View_Place_detail.this, Login_Signup.class);
-                    startActivity(intent);
-                }
-
-
+                new Utils().logOut(View_Place_detail.this);
             }
         });
 
